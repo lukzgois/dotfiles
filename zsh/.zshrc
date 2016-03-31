@@ -107,6 +107,10 @@ alias ast="azk start"
 alias astp="azk stop"
 alias ar="azk restart"
 
+# Docker
+alias docker-clean="docker ps -a | grep 'weeks ago\|months ago' | awk '{print $1}' | xargs docker rm"
+alias docker-clean-images="docker images | grep '^<none>' | awk '{print $3}' | xargs docker rmi"
+
 
 # azk source and azk brew
 if [ -d "$HOME/Development/azk/bin/azk" ]; then
