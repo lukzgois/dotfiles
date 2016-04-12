@@ -74,6 +74,13 @@ export EDITOR='vim'
 BASE16_SHELL="$HOME/.config/base16-shell/base16-default.dark.sh"
 [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 
+
+###############################################
+#          PHP ENV                            #
+##############################################
+export PATH="/home/lukz/.phpenv/bin:$PATH"
+eval "$(phpenv init -)"
+
 ###############################################
 #             ALIASES                         #
 ###############################################
@@ -100,6 +107,9 @@ alias cu="composer update --prefer-dist"
 alias gt="git status"
 alias ga="git add --all"
 alias gc="git commit"
+alias gp="git push"
+alias gck="git checkout"
+alias gpl="git pull"
 
 # Azk
 alias as="azk shell"
