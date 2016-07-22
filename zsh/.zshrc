@@ -53,7 +53,7 @@ plugins=(git docker)
 
 # User configuration
 
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/lukz/.composer/vendor/bin"
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/lukz/.composer/vendor/bin:$HOME/.rbenv/shims"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -118,8 +118,8 @@ alias astp="azk stop"
 alias ar="azk restart"
 
 # Docker
-alias docker-clean="docker ps -a | grep 'weeks ago\|months ago' | awk '{print $1}' | xargs docker rm"
-alias docker-clean-images="docker images | grep '^<none>' | awk '{print $3}' | xargs docker rmi"
+alias docker-clean="docker rm \$(docker ps -aqf 'status=exited' -f 'status=dead')"
+alias docker-clean-images="docker rmi \$(docker images -f 'dangling=true' -q)"
 
 
 # azk source and azk brew
