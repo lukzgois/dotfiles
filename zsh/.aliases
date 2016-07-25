@@ -1,0 +1,45 @@
+###############################################
+##                 ALIASES                   ##
+###############################################
+
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+# General
+alias zshconfig="vim ~/.zshrc"
+alias ls="ls --color=auto"
+alias ll="ls -lahF"
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+
+# Composer
+alias c="composer"
+alias ci="composer install --prefer-dist"
+alias cu="composer update --prefer-dist"
+
+# Git
+alias gt="git status"
+alias ga="git add --all"
+alias gc="git commit"
+alias gp="git push"
+alias gck="git checkout"
+alias gpl="git pull"
+
+# Azk
+alias as="azk shell"
+alias ast="azk start"
+alias astp="azk stop"
+alias ar="azk restart"
+
+# Docker
+alias docker-clean="docker rm \$(docker ps -aqf 'status=exited' -f 'status=dead')"
+alias docker-clean-images="docker rmi \$(docker images -f 'dangling=true' -q)"
+
+
+# azk source and azk brew
+if [ -d "$HOME/Development/azk/bin/azk" ]; then
+  alias azksrc="$HOME/Development/azk/bin/azk"
+fi
