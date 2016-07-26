@@ -31,3 +31,9 @@ extract () {
         echo "'$1' is not a valid file"
     fi
 }
+
+# Usage: mcd <dir>
+# Description: create a new folder and cd into it
+mcd () {
+    mkdir -p "$@" && cd "$@"
+}
