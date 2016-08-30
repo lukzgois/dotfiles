@@ -38,6 +38,7 @@ alias ar="azk restart"
 # Docker
 alias docker-clean="docker rm \$(docker ps -aqf 'status=exited' -f 'status=dead')"
 alias docker-clean-images="docker rmi \$(docker images -f 'dangling=true' -q)"
+alias dcc="docker-compose"
 
 
 # azk source and azk brew
