@@ -18,7 +18,7 @@ plugins=(git docker laravel5)
 
 # User configuration
 
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/lukz/.composer/vendor/bin"
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/lukz/.composer/vendor/bin:$HOME/.rbenv/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -42,6 +42,9 @@ BASE16_SHELL="$HOME/.config/base16-shell/base16-default.dark.sh"
 source ~/.aliases
 source ~/.colors
 source ~/.functions
+
+# rbenv
+eval "$(rbenv init -)"
 
 ###############################################
 #            STARTUP MESSAGE                  #
