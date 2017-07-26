@@ -40,8 +40,7 @@ alias docker-clean="docker rm \$(docker ps -aqf 'status=exited' -f 'status=dead'
 alias docker-clean-images="docker rmi \$(docker images -f 'dangling=true' -q)"
 alias dcc="docker-compose"
 
+# Emacs
+alias emacs="XLIB_SKIP_ARGB_VISUALS=1 emacs"
 
-# azk source and azk brew
-if [ -d "$HOME/Development/azk/bin/azk" ]; then
-  alias azksrc="$HOME/Development/azk/bin/azk"
-fi
+
