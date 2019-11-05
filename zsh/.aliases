@@ -15,6 +15,15 @@ alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
+alias ..='cd ..'
+alias ...='cd ../..'
+alias cl='clear'
+
+# Folder shortcuts
+alias gdev='cd ~/Development'
+alias gdow='cd ~/Downloads'
+alias gdoc='cd ~/Documents'
+
 
 # Composer
 alias c="composer"
@@ -28,12 +37,7 @@ alias gc="git commit"
 alias gp="git push"
 alias gck="git checkout"
 alias gpl="git pull"
-
-# Azk
-alias as="azk shell"
-alias ast="azk start"
-alias astp="azk stop"
-alias ar="azk restart"
+alias gll="git log -1" # check last commit
 
 # Docker
 alias docker-clean="docker rm \$(docker ps -aqf 'status=exited' -f 'status=dead')"
@@ -43,4 +47,7 @@ alias dcc="docker-compose"
 # Emacs
 alias emacs="XLIB_SKIP_ARGB_VISUALS=1 emacs"
 
-
+#Laravel
+alias art="php artisan"
+alias phpunit="vendor/bin/phpunit"
+alias phpunitf="vendor/bin/phpunit --filter= "

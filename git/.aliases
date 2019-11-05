@@ -18,3 +18,4 @@
     wip = !git add -A && git commit -m 'WIP' # create a WIP commit
     brd = !git branch --merged | grep -v master | grep -v production | xargs git branch -d # delete merged branches
     align = !git fetch --all && git pull origin $(git branch-name) # fetch remotes and update the current branch
+    nah = !git reset --hard && git clean -df
