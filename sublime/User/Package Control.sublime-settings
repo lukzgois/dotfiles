@@ -1,0 +1,33 @@
+{
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"A File Icon",
+		"AdvancedNewFile",
+		"All Autocomplete",
+		"ayu",
+		"ChangeQuotes",
+		"DocBlockr",
+		"EditorConfig",
+		"Emmet",
+		"FileIcons",
+		"FileIcons Mono",
+		"MarkdownEditing",
+		"Material Theme",
+		"NeoVintageous",
+		"Package Control",
+		"PHP Companion",
+		"Rainglow",
+		"Sass",
+		"SideBarEnhancements",
+		"SublimeCodeIntel",
+		"SublimeGit",
+		"SublimeLinter",
+		"Theme - Darkmatter",
+		"Theme - itg.flat",
+		"Vue Syntax Highlight"
+	]
+}
