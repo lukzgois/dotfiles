@@ -15,9 +15,11 @@
 		"Emmet",
 		"FileIcons",
 		"FileIcons Mono",
+		"Focus File on Sidebar",
 		"MarkdownEditing",
 		"Material Theme",
 		"NeoVintageous",
+		"Nord",
 		"Package Control",
 		"PHP Companion",
 		"Rainglow",
@@ -28,6 +30,7 @@
 		"SublimeLinter",
 		"Theme - Darkmatter",
 		"Theme - itg.flat",
+		"Theme - Spacegray",
 		"Vue Syntax Highlight"
 	]
 }

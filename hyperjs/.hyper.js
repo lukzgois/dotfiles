@@ -140,7 +140,7 @@ module.exports = {
   //   `@company/project`
   //   `project#1.0.1`
   // plugins: ["hyper-material-theme", "hyper-snazzy"],
-  plugins: ['nord-hyper', 'hyper-font-ligatures'],
+  plugins: ['nord-hyper', 'hyper-font-ligatures', 'hyper-fading-scrollbar'],
 
   // in development, you can create a directory under
   // `~/.hyper_plugins/local/` and include it here

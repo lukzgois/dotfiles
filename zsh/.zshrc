@@ -1,12 +1,11 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/home/lukz/.oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 ZSH_THEME="robbyrussell"
-#ZSH_THEME="agnoster"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 COMPLETION_WAITING_DOTS="true"
@@ -19,7 +18,6 @@ plugins=(git docker laravel5 last-working-dir)
 
 # User configuration
 
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/lukz/.composer/vendor/bin:$HOME/.rbenv/bin:$HOME/.nodenv/bin:$HOME/.nodenv/shims:$HOME/.rbenv/shims:$HOME/.config/composer/vendor/bin:$HOME/npm/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -29,7 +27,9 @@ source $ZSH/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-export EDITOR='vim'
+export EDITOR='nvim'
+
+export DISABLE_AUTO_TITLE='true'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -45,23 +45,30 @@ source ~/.aliases
 source ~/.colors
 source ~/.functions
 
-###############################################
-#            STARTUP MESSAGE                  #
-###############################################
-
-clear
-echo -e "${lightgreen}";figlet "Welcome    Lukz";
-echo -ne "${red}Today is:\t${cyan}" `date`; echo ""
-echo -e "${red}Kernel: \t${cyan}" `uname -smr`
-echo -ne "${cyan}";upinfo;echo ""
-echo -e "${yellow}"; cal -3
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-
-. $HOME/.asdf/asdf.sh
-. $HOME/.asdf/completions/asdf.bash
-
-
-
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/lukz/.composer/vendor/bin:$HOME/.rbenv/bin:$HOME/.nodenv/bin:$HOME/.nodenv/shims:$HOME/.rbenv/shims:$HOME/.config/composer/vendor/bin:$HOME/npm/bin"
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+export PATH="$HOME/.npm-global/bin:$HOME/.local/bin:/var/lib/snapd/snap/bin:/home/golfinho/.scripts:$PATH"
+
+source $HOME/.profile
+
+source /usr/share/fzf/completion.zsh
+source /usr/share/fzf/key-bindings.zsh
+
+. /home/golfinho/.asdf/asdf.sh
+
+# Github and docker keys
+export GITHUB_PRIVATE_KEY_PATH="$HOME/.ssh/id_rsa"
+export DOCKER_BUILDKIT=1
+
+# Enable Vim mode in ZSH
+# bindkey -v
+#
+# autoload -U edit-command-line
+# zle -N edit-command-line
+# bindkey '^E' edit-command-line                   # Opens Vim to edit current command line
+# bindkey '^R' history-incremental-search-backward # Perform backward search in command line history
+# bindkey '^S' history-incremental-search-forward  # Perform forward search in command line history
+# bindkey '^P' history-search-backward             # Go back/search in history (autocomplete)
+# bindkey '^N' history-search-forward              # Go forward/search in history (autocomplete)
+
+eval "$(starship init zsh)"

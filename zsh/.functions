@@ -37,3 +37,7 @@ extract () {
 mcd () {
     mkdir -p "$@" && cd "$@"
 }
+
+codelayout() {
+  tmux split-window -h -p 75
+}
