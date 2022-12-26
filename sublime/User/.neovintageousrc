@@ -1,3 +1,0 @@
-" Type :h neovintageousrc for help.
-nnoremap <S-Enter> O<Esc>
-nnoremap <CR> o<Esc>

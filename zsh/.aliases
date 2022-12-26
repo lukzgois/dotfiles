@@ -49,7 +49,3 @@ alias emacs="XLIB_SKIP_ARGB_VISUALS=1 emacs"
 alias art="php artisan"
 alias phpunit="vendor/bin/phpunit"
 alias phpunitf="vendor/bin/phpunit --filter= "
-
-# Lucidity Kubernetes
-alias kprod="kubectl --context=arn:aws:eks:us-east-1:500669969333:cluster/kubernetes-production-1-15"
-alias kstag="kubectl --context=arn:aws:eks:us-east-1:500669969333:cluster/kubernetes-staging"

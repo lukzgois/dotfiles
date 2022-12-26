@@ -31,6 +31,8 @@ export EDITOR='nvim'
 
 export DISABLE_AUTO_TITLE='true'
 
+export BROWSER=~/Applications/Brave-x86_64_acb957db7ad84eecbd22009a3d721396.AppImage
+
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
@@ -46,8 +48,9 @@ source ~/.colors
 source ~/.functions
 
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/lukz/.composer/vendor/bin:$HOME/.rbenv/bin:$HOME/.nodenv/bin:$HOME/.nodenv/shims:$HOME/.rbenv/shims:$HOME/.config/composer/vendor/bin:$HOME/npm/bin"
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-export PATH="$HOME/.npm-global/bin:$HOME/.local/bin:/var/lib/snapd/snap/bin:/home/golfinho/.scripts:$PATH"
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$HOME/.emacs.d/bin:$PATH"
+export PATH="$HOME/.npm-global/bin:$HOME/.local/bin:/var/lib/snapd/snap/bin:/home/golfinho/.scripts:/home/golfinho/share/nvim/lsp_servers:$PATH"
+export GOPATH="$HOME/go"
 
 source $HOME/.profile
 
