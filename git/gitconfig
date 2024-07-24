@@ -16,3 +16,6 @@
     path = ~/.gitconfig_local
     path = ~/.gitaliases
 
+[user]
+	email = lucaspgois@gmail.com
+	name = Lucas
