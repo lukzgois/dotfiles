@@ -1,0 +1,8 @@
+font_family JetBrainsMono NF Regular
+
+font_size 12
+
+# BEGIN_KITTY_THEME
+# One Dark
+include current-theme.conf
+# END_KITTY_THEME
