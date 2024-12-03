@@ -11,6 +11,10 @@ ln -sf $DOTFILES/git/gitignore_global $HOME/.gitignore_global
 rm -rf $HOME/.config/phpactor
 ln -s $DOTFILES/phpactor $HOME/.config/phpactor
 
+# Kitty
+rm -rf $HOME/.config/kitty
+ln -sf $DOTFILES/kitty $HOME/.config/kitty
+
 # Dunst
 rm -rf $HOME/.config/dunst
 ln -s $DOTFILES/dunst $HOME/.config/dunst
