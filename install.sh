@@ -15,6 +15,10 @@ ln -s $DOTFILES/phpactor $HOME/.config/phpactor
 rm -rf $HOME/.config/kitty
 ln -sf $DOTFILES/kitty $HOME/.config/kitty
 
+# NEOVIM
+rm -rf $HOME/.config/nvim
+ln -sf $DOTFILES/nvim $HOME/.config/nvim
+
 # Dunst
 rm -rf $HOME/.config/dunst
 ln -s $DOTFILES/dunst $HOME/.config/dunst
