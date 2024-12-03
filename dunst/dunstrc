@@ -136,7 +136,7 @@
 
     ### Text ###
 
-    font = Monospace 8
+    font = Monospace 14
 
     # The spacing between lines.  If the height is smaller than the
     # font height, it will get raised to the font height.
@@ -484,3 +484,19 @@
 #    set_stack_tag = "volume"
 #
 # vim: ft=cfg
+[global]
+frame_color = "#8aadf4"
+separator_color= frame
+
+[urgency_low]
+background = "#24273a"
+foreground = "#cad3f5"
+
+[urgency_normal]
+background = "#24273a"
+foreground = "#cad3f5"
+
+[urgency_critical]
+background = "#24273a"
+foreground = "#cad3f5"
+frame_color = "#f5a97f"

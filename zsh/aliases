@@ -24,11 +24,8 @@ alias gdev='cd ~/Development'
 alias gdow='cd ~/Downloads'
 alias gdoc='cd ~/Documents'
 
-
 # Composer
 alias c="composer"
-alias ci="composer install --prefer-dist"
-alias cu="composer update --prefer-dist"
 
 # Git
 alias gt="git status"
@@ -42,10 +39,11 @@ alias docker-clean="docker rm \$(docker ps -aqf 'status=exited' -f 'status=dead'
 alias docker-clean-images="docker rmi \$(docker images -f 'dangling=true' -q)"
 alias dcc="docker-compose"
 
-# Emacs
-alias emacs="XLIB_SKIP_ARGB_VISUALS=1 emacs"
-
 #Laravel
 alias art="php artisan"
 alias phpunit="vendor/bin/phpunit"
 alias phpunitf="vendor/bin/phpunit --filter= "
+alias sail="vendor/bin/sail"
+
+# FZF
+alias tmuxpl='tmuxp load $(find ~/.tmuxp/*.yaml -printf "%f\n" | cut -f 1 -d '.' | fzf)'
