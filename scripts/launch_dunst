@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+killall dunst
+sleep 1
+dunst &

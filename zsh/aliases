@@ -1,0 +1,49 @@
+###############################################
+##                 ALIASES                   ##
+###############################################
+
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+# General
+alias zshconfig="vim ~/.zshrc"
+alias reloadzsh="source ~/.zshrc"
+alias ls="ls --color=auto"
+alias ll="ls -lahF"
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+alias ..='cd ..'
+alias ...='cd ../..'
+alias cl='clear'
+
+# Folder shortcuts
+alias gdev='cd ~/Development'
+alias gdow='cd ~/Downloads'
+alias gdoc='cd ~/Documents'
+
+# Composer
+alias c="composer"
+
+# Git
+alias gt="git status"
+alias gc="git commit"
+alias gck="git checkout"
+alias gll="git log -1" # check last commit
+alias lg="lazygit"
+
+# Docker
+alias docker-clean="docker rm \$(docker ps -aqf 'status=exited' -f 'status=dead')"
+alias docker-clean-images="docker rmi \$(docker images -f 'dangling=true' -q)"
+alias dcc="docker-compose"
+
+#Laravel
+alias art="php artisan"
+alias phpunit="vendor/bin/phpunit"
+alias phpunitf="vendor/bin/phpunit --filter= "
+alias sail="vendor/bin/sail"
+
+# FZF
+alias tmuxpl='tmuxp load $(find ~/.tmuxp/*.yaml -printf "%f\n" | cut -f 1 -d '.' | fzf)'

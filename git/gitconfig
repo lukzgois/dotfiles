@@ -1,0 +1,21 @@
+[init]
+    defaultBranch = main
+
+[diff]
+    tool = vimdiff
+
+[color]
+    ui = auto
+
+[core]
+    editor = nvim
+    excludesfile = ~/.gitignore_global
+    pager = delta
+
+[include]
+    path = ~/.gitconfig_local
+    path = ~/.gitaliases
+
+[user]
+	email = lucaspgois@gmail.com
+	name = Lucas
