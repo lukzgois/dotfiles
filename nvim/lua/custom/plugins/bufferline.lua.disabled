@@ -1,0 +1,101 @@
+local inactiveBg = {
+  bg = { attribute = 'bg', highlight = 'StatusLine' },
+}
+
+return {
+  'akinsho/bufferline.nvim',
+  version = '*',
+  dependencies = 'nvim-tree/nvim-web-devicons',
+  config = function()
+    vim.opt.termguicolors = true
+    require('bufferline').setup {
+      options = {
+        offsets = {
+          {
+            filetype = 'neo-tree',
+            text = '  Files',
+            text_align = 'center',
+          },
+        },
+        show_close_icon = false,
+        show_buffer_close_icons = false,
+        tab_size = 0,
+        max_name_length = 25,
+        close_command = function(bufnr) -- can be a string | function, see "Mouse actions"
+          require('custom.functions.buffer_helper').buf_kill('bd', bufnr, false)
+        end,
+        separator_style = 'slant',
+        modified_icon = '',
+        custom_areas = {
+          left = function()
+            return {
+              { text = '    ', fg = '#8fff6d' },
+            }
+          end,
+        },
+      },
+      highlights = {
+        fill = {
+          bg = { attribute = 'bg', highlight = 'StatusLine' },
+        },
+        background = inactiveBg,
+        close_button = inactiveBg,
+        diagnostic = inactiveBg,
+        diagnostic_visible = inactiveBg,
+        modified = inactiveBg,
+        modified_visible = inactiveBg,
+        hint = inactiveBg,
+        hint_visible = inactiveBg,
+        info = inactiveBg,
+        info_visible = inactiveBg,
+        warning = inactiveBg,
+        warning_visible = inactiveBg,
+        error = inactiveBg,
+        error_visible = inactiveBg,
+        hint_diagnostic = inactiveBg,
+        hint_diagnostic_visible = inactiveBg,
+        info_diagnostic = inactiveBg,
+        info_diagnostic_visible = inactiveBg,
+        warning_diagnostic = inactiveBg,
+        warning_diagnostic_visible = inactiveBg,
+        error_diagnostic = inactiveBg,
+        error_diagnostic_visible = inactiveBg,
+        duplicate = inactiveBg,
+        duplicate_visible = inactiveBg,
+        separator = {
+          fg = { attribute = 'bg', highlight = 'StatusLine' },
+          bg = { attribute = 'bg', highlight = 'StatusLine' },
+        },
+        separator_selected = {
+          fg = { attribute = 'bg', highlight = 'StatusLine' },
+        },
+        separator_visible = {
+          fg = { attribute = 'bg', highlight = 'StatusLine' },
+        },
+        trunc_marker = {
+          bg = { attribute = 'bg', highlight = 'StatusLine' },
+        },
+
+        -- Tabs
+        tab = inactiveBg,
+        tab_separator = {
+          fg = { attribute = 'bg', highlight = 'StatusLine' },
+          bg = { attribute = 'bg', highlight = 'BufferlineInactive' },
+        },
+        tab_separator_selected = {
+          fg = { attribute = 'bg', highlight = 'StatusLine' },
+        },
+        tab_close = {
+          bg = 'yellow',
+        },
+      },
+    }
+
+    -- vim.keymap.set('n', '<S-h>', '<cmd>BufferLineCyclePrev<CR>', { desc = 'Go to the previous tab' })
+    -- vim.keymap.set('n', '<S-l>', '<cmd>BufferLineCycleNext<CR>', { desc = 'Go to the next tab' })
+    vim.keymap.set('n', '<leader>bcc', '<cmd>:lua require("custom.functions.buffer_helper").buf_kill "bd"<CR>', { desc = '[B]uffer [C]close' })
+    vim.keymap.set('n', '<leader>bcl', '<cmd>BufferLineCloseLeft<CR>', { desc = '[B]uffer [C]close [L]eft' })
+    vim.keymap.set('n', '<leader>bcr', '<cmd>BufferLineCloseRight<CR>', { desc = '[B]uffer [C]close [R]ight' })
+    vim.keymap.set('n', '<leader>bco', '<cmd>BufferLineCloseOthers<CR>', { desc = '[B]uffer [C]close [O]ther' })
+  end,
+}
