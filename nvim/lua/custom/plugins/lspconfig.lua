@@ -15,7 +15,7 @@ return { -- LSP Configuration & Plugins
     { 'folke/neodev.nvim', opts = {} },
     'b0o/schemastore.nvim',
 
-    { 'jose-elias-alvarez/null-ls.nvim', dependencies = 'nvim-lua/plenary.nvim' },
+    { 'nvimtools/none-ls.nvim', dependencies = { 'nvim-lua/plenary.nvim', 'nvimtools/none-ls-extras.nvim' } },
     'jayp0521/mason-null-ls.nvim',
   },
   config = function()
@@ -92,6 +92,9 @@ return { -- LSP Configuration & Plugins
 
         -- Execute a code action, usually your cursor needs to be on top of an error
         -- or a suggestion from your LSP for this to activate.
+        require('which-key').add({
+          { "<leader>c", group = "[C]ode" }
+        })
         map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
         -- Opens a popup that displays documentation about the word under your cursor
@@ -109,10 +112,10 @@ return { -- LSP Configuration & Plugins
         -- When you move your cursor, the highlights will be cleared (the second autocommand).
         local client = vim.lsp.get_client_by_id(event.data.client_id)
         if client and client.server_capabilities.documentHighlightProvider then
-          vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
-            buffer = event.buf,
-            callback = vim.lsp.buf.document_highlight,
-          })
+          -- vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+          --   buffer = event.buf,
+          --   callback = vim.lsp.buf.document_highlight,
+          -- })
 
           vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
             buffer = event.buf,
@@ -188,6 +191,7 @@ return { -- LSP Configuration & Plugins
 
     require('mason-lspconfig').setup {
       automatic_installation = true,
+      ensure_installed = ensure_installed,
 
       handlers = {
         function(server_name)
@@ -239,7 +243,7 @@ return { -- LSP Configuration & Plugins
     -- If you are using mason.nvim, you can get the ts_plugin_path like this
     local mason_registry = require('mason-registry')
     local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path() ..
-    '/node_modules/@vue/language-server'
+        '/node_modules/@vue/language-server'
     require 'lspconfig'.ts_ls.setup {
       init_options = {
         plugins = {
@@ -300,27 +304,25 @@ return { -- LSP Configuration & Plugins
 
     -- null-ls
     local null_ls = require 'null-ls'
+    local extras = require("none-ls.diagnostics.eslint_d")
+    null_ls.register(extras)
+
     local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
     null_ls.setup {
       temp_dir = '/tmp',
       sources = {
-        null_ls.builtins.diagnostics.eslint_d.with {
-          condition = function(utils)
-            return utils.root_has_file { '.eslintrc.js' }
-          end,
-        },
+        require('none-ls.formatting.eslint_d').with { disabled_filetypes = { 'NvimTree' } },
+
         -- null_ls.builtins.diagnostics.phpstan, -- TODO: Only if config file
+
         null_ls.builtins.diagnostics.trail_space.with { disabled_filetypes = { 'NvimTree' } },
-        null_ls.builtins.formatting.eslint_d.with {
-          condition = function(utils)
-            return utils.root_has_file { '.eslintrc.js', '.eslintrc.json' }
-          end,
-        },
+
         null_ls.builtins.formatting.pint.with {
           condition = function(utils)
             return utils.root_has_file { 'vendor/bin/pint' }
           end,
         },
+
         null_ls.builtins.formatting.prettier.with {
           condition = function(utils)
             return utils.root_has_file { '.prettierrc', '.prettierrc.json', '.prettierrc.yml', '.prettierrc.js', 'prettier.config.js' }
@@ -341,12 +343,15 @@ return { -- LSP Configuration & Plugins
       end,
     }
 
-    require('mason-null-ls').setup { automatic_installation = true }
+    require('mason-null-ls').setup { automatic_installation = true, ensure_installed = ensure_installed }
 
     -- Commands
     vim.api.nvim_create_user_command('Format', function()
       vim.lsp.buf.format { timeout_ms = 5000 }
     end, {})
+    vim.keymap.set("n", "<leader>f", function()
+      vim.lsp.buf.format { timeout_ms = 5000 }
+    end, { noremap = true, silent = true })
 
     -- Diagnostic configuration
     vim.diagnostic.config {

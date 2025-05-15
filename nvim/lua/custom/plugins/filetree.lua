@@ -10,7 +10,7 @@ return {
     require('neo-tree').setup {
       close_if_last_window = true,
       window = {
-        width = 45,
+        width = 35,
       },
       filesystem = {
         follow_current_file = {

@@ -1,7 +1,6 @@
 return { -- Fuzzy Finder (files, lsp, etc)
   'nvim-telescope/telescope.nvim',
   event = 'VimEnter',
-  branch = '0.1.x',
   dependencies = {
     'nvim-lua/plenary.nvim',
     'jonarrien/telescope-cmdline.nvim',
@@ -58,6 +57,18 @@ return { -- Fuzzy Finder (files, lsp, etc)
       --   },
       -- },
       -- pickers = {}
+      defaults = {
+        layout_strategy = 'horizontal',
+        layout_config = {
+          horizontal = {
+            prompt_position = 'bottom',
+            width = { padding = 0 },
+            height = { padding = 0 },
+            preview_width = 0.5
+          }
+        },
+        sorting_strategy = 'descending'
+      },
       extensions = {
         ['ui-select'] = {
           require('telescope.themes').get_dropdown(),
@@ -78,7 +89,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
         buffers = {
           previewer = false,
           layout_config = {
-            width = 80,
+            width = 0.9,
           },
         }
       }
@@ -107,7 +118,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
     vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
     vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
     vim.keymap.set('n', '<leader>sb', builtin.buffers, { desc = '[S]earch [B]uffers' })
-    -- vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[S]earch [B]uffers' })
+    vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[S]earch [B]uffers' })
 
     -- Slightly advanced example of overriding default behavior and theme
     vim.keymap.set('n', '<leader>scf', function()

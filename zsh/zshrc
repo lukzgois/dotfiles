@@ -118,8 +118,8 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 . "$HOME/.asdf/asdf.sh"
 
 # CAPS2ESC
-/usr/bin/setxkbmap -option 'caps:ctrl_modifier,shift:both_capslock'
-/usr/bin/xcape -e 'Caps_Lock=Escape'
+# /usr/bin/setxkbmap -option 'caps:ctrl_modifier,shift:both_capslock'
+# /usr/bin/xcape -e 'Caps_Lock=Escape'
 
 # Keybindings for FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

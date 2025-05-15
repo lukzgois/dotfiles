@@ -1,3 +1,41 @@
+-- Icons from font bundled with kitty, as shown by `kitty
+-- --debug-font-fallback`:
+--
+--      [3.235] U+eb62 Face(family=Symbols Nerd Font Mono,
+--      full_name=Symbols Nerd Font Mono, postscript_name=SymbolsNFM,
+--      path=/Applications/kitty.app/Contents/Resources/kitty/fonts/SymbolsNerdFontMono-Regular.ttf,
+--      units_per_em=2048, ascent=22.4, descent=5.6, leading=0.0,
+--      scaled_point_sz=28.0, underline_position=-3.5 underline_thickness=1.4)
+--
+local lsp_kinds = {
+  Class = ' ',
+  Color = ' ',
+  Constant = ' ',
+  Constructor = ' ',
+  Enum = ' ',
+  EnumMember = ' ',
+  Event = ' ',
+  Field = ' ',
+  File = ' ',
+  Folder = ' ',
+  Function = ' ',
+  Interface = ' ',
+  Keyword = ' ',
+  Method = ' ',
+  Module = ' ',
+  Operator = ' ',
+  Property = ' ',
+  Reference = ' ',
+  Snippet = ' ',
+  Struct = ' ',
+  Text = ' ',
+  TypeParameter = ' ',
+  Unit = ' ',
+  Value = ' ',
+  Variable = ' ',
+  Supermaven = '󱚣 ',
+}
+
 return { -- Autocompletion
   'hrsh7th/nvim-cmp',
   event = 'InsertEnter',
@@ -35,31 +73,71 @@ return { -- Autocompletion
   config = function()
     -- See `:help cmp`
     local cmp = require 'cmp'
-    local luasnip = require 'luasnip'
-    local lspkind = require 'lspkind'
+    local has_luasnip, luasnip = pcall(require, 'luasnip')
 
     require("luasnip.loaders.from_snipmate").lazy_load()
+
+    -- Until https://github.com/hrsh7th/nvim-cmp/issues/1716
+    -- (cmp.ConfirmBehavior.MatchSuffix) gets implemented, use this local wrapper
+    -- to choose between `cmp.ConfirmBehavior.Insert` and
+    -- `cmp.ConfirmBehavior.Replace`
+    --
+    local confirm = function(entry)
+      local behavior = cmp.ConfirmBehavior.Replace
+
+      if entry then
+        local completion_item = entry.completion_item
+        local newText = ''
+        if completion_item.textEdit then
+          newText = completion_item.textEdit.newText
+        elseif type(completion_item.insertText) == 'string' and completion_item.insertText ~= '' then
+          newText = completion_item.insertText
+        else
+          newText = completion_item.word or completion_item.label or ''
+        end
+
+        -- How many characters will be different after the cursor position if we
+        -- replace?
+        local diff_after = math.max(0, entry.replace_range['end'].character + 1) - entry.context.cursor.col
+
+        -- Does the text that will be replaced after the cursor match the suffix
+        -- of the `newText` to be inserted? If not, we should `Insert` instead.
+        if entry.context.cursor_after_line:sub(1, diff_after) ~= newText:sub(-diff_after) then
+          behavior = cmp.ConfirmBehavior.Insert
+        end
+      end
+      cmp.confirm({ select = true, behavior = behavior })
+    end
 
     cmp.setup {
       snippet = {
         expand = function(args)
-          luasnip.lsp_expand(args.body)
+          if has_luasnip then
+            luasnip.lsp_expand(args.body)
+          end
         end,
       },
-      -- completion = { completeopt = 'menu,menuone,noinsert' },
-      completion = { completeopt = 'menuone,longest,preview' },
+
+      -- completion = { completeopt = 'menuone,longest,preview' },
+      completion = { completeopt = 'menu,menuone,noinsert' },
+
       formatting = {
         fields = { 'kind', 'abbr', 'menu' },
-        -- format = lspkind.cmp_format {},
+
+        expandable_indicator = true,
         format = function(entry, vim_item)
-          -- NOTE: order matters
+          -- Set `kind` to "$icon $kind".
+          vim_item.kind = string.format('%s %s', lsp_kinds[vim_item.kind], vim_item.kind)
           vim_item.menu = ({
-            nvim_lsp = "[LSP]",
-            buffer = "[Buffer]",
+            supermaven = '[SuperMaven]',
+            buffer = '[Buffer]',
+            nvim_lsp = '[LSP]',
+            luasnip = '[LuaSnip]',
+            nvim_lua = '[Lua]',
+            latex_symbols = '[LaTeX]',
           })[entry.source.name]
           return vim_item
         end,
-
       },
 
       -- For an understanding of why these mappings were
@@ -75,7 +153,25 @@ return { -- Autocompletion
         -- Accept ([y]es) the completion.
         --  This will auto-import if your LSP supports it.
         --  This will expand snippets if the LSP sent a snippet.
-        ['<C-y>'] = cmp.mapping.confirm { select = true },
+        -- ['<C-y>'] = cmp.mapping.confirm { select = true },
+        ['<C-y>'] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            local entry = cmp.get_selected_entry()
+            confirm(entry)
+          else
+            fallback()
+          end
+        end, { 'i', 's' }),
+
+        ['<C-e>'] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            cmp.close()
+          elseif has_luasnip and luasnip.choice_active() then
+            luasnip.jump(1)
+          else
+            fallback()
+          end
+        end, { 'i', 's' }),
 
         -- Manually trigger a completion from nvim-cmp.
         --  Generally you don't need this, because nvim-cmp will display
@@ -95,22 +191,57 @@ return { -- Autocompletion
             luasnip.expand_or_jump()
           end
         end, { 'i', 's' }),
+
         ['<C-h>'] = cmp.mapping(function()
           if luasnip.locally_jumpable(-1) then
             luasnip.jump(-1)
           end
         end, { 'i', 's' }),
       },
+
       sources = {
+        { name = 'luasnip' },
+        { name = 'supermaven' },
         { name = 'nvim_lsp' },
         { name = 'nvim_lsp_signature_help' },
-        { name = 'luasnip' },
         { name = 'buffer' },
+        { name = 'calc' },
+        { name = 'emoji' },
         { name = 'path' },
       },
+
       experimental = {
         ghost_text = true,
       },
     }
+    -- Only show ghost text at word boundaries, not inside keywords. Based on idea
+    -- from: https://github.com/hrsh7th/nvim-cmp/issues/2035#issuecomment-2347186210
+
+    local config = require('cmp.config')
+
+    local toggle_ghost_text = function()
+      if vim.api.nvim_get_mode().mode ~= 'i' then
+        return
+      end
+
+      local cursor_column = vim.fn.col('.')
+      local current_line_contents = vim.fn.getline('.')
+      local character_after_cursor = current_line_contents:sub(cursor_column, cursor_column)
+
+      local should_enable_ghost_text = character_after_cursor == '' or vim.fn.match(character_after_cursor, [[\k]]) == -1
+
+      local current = config.get().experimental.ghost_text
+      if current ~= should_enable_ghost_text then
+        config.set_global({
+          experimental = {
+            ghost_text = should_enable_ghost_text,
+          },
+        })
+      end
+    end
+
+    vim.api.nvim_create_autocmd({ 'InsertEnter', 'CursorMovedI' }, {
+      callback = toggle_ghost_text,
+    })
   end,
 }

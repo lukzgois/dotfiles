@@ -149,8 +149,8 @@ vim.opt.inccommand = 'split'
 vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
-vim.opt.scrolloff = 6
-vim.opt.sidescrolloff = 6
+vim.opt.scrolloff = 10
+vim.opt.sidescrolloff = 10
 
 vim.opt.cmdheight = 0
 
@@ -164,8 +164,7 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 -- General keymaps
 vim.keymap.set('i', 'jj', '<ESC>', { desc = 'Exit insert mode with jj' })
 vim.keymap.set('n', '<C-s>', ':w<CR>', { desc = 'Save with CRTL+S' })
--- vim.keymap.set('n', '<C-ENTER>', 'O<ESC>', { desc = 'Insert a blank line before the current line' })
--- vim.keymap.set('n', '<ENTER>', 'o<ESC>', { desc = 'Insert a blank line after the current line' })
+vim.keymap.set('n', '<C-q>', ':q<CR>', { desc = 'Quit with CRTL+Q' })
 
 vim.keymap.set('v', '<', '<gv', { desc = 'Indent and immediately re-select the previous visual selection' })
 vim.keymap.set('v', '>', '>gv', { desc = 'Indent and immediately re-select the previous visual selection' })
@@ -180,10 +179,10 @@ vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = tr
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Easy insertion of a trailing ; or , from insert mode.
-vim.keymap.set('i', ';;', '<Esc>A;')
-vim.keymap.set('i', ',,', '<Esc>A,')
-vim.keymap.set('n', ';;', '<Esc>A;<Esc>')
-vim.keymap.set('n', ',,', '<Esc>A,<Esc>')
+vim.keymap.set('i', '<leader>;', '<Esc>A;')
+vim.keymap.set('i', '<leader>,', '<Esc>A,')
+vim.keymap.set('n', '<leader>;', '<Esc>A;<Esc>')
+vim.keymap.set('n', '<leader>,', '<Esc>A,<Esc>')
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })

@@ -4,6 +4,17 @@ return {
     name = 'catppuccin',
     priority = 1000,
     config = function()
+      -- require('catppuccin').setup {
+      --   custom_highlights = function (colors)
+      --     return {
+      --       TelescopeNormal = { fg = colors.base, bg = colors.base },
+      --       TelescopeBorder = { bg = colors.none },
+      --       TelescopePromptNormal = { bg = colors.overlay2 },
+      --       TelescopePromptBorder = { bg = colors.base, fg = colors.base },
+      --     }
+      --   end,
+      -- }
+
       vim.cmd.colorscheme 'catppuccin-macchiato'
 
       -- You can configure highlights by doing something like

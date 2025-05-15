@@ -13,9 +13,6 @@ return { -- Highlight, edit, and navigate code
       enable = true,
       disabled = { 'yaml' },
     },
-    context_commentstring = {
-      enable = true,
-    },
     rainbow = {
       enable = true,
     },
@@ -65,5 +62,7 @@ return { -- Highlight, edit, and navigate code
         ['.*%.blade%.php'] = 'blade',
       },
     }
+
+    require('nvim-treesitter.configs').setup(opts)
   end,
 }
