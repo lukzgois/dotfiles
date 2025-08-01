@@ -16,11 +16,20 @@ return {
       -- }
 
       vim.cmd.colorscheme 'catppuccin-macchiato'
-
-      -- You can configure highlights by doing something like
-      vim.cmd.hi 'Comment gui=none'
+      --
+      -- -- You can configure highlights by doing something like
+      -- vim.cmd.hi 'Comment gui=none'
     end,
   },
+
+  -- lua/plugins/rose-pine.lua
+  {
+    "rose-pine/neovim",
+    name = "rose-pine",
+    config = function()
+      -- vim.cmd("colorscheme rose-pine-moon")
+    end
+  }
   --
   -- {
   --   -- You can easily change to a different colorscheme.

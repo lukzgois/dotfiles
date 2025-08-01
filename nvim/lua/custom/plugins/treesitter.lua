@@ -42,6 +42,7 @@ return { -- Highlight, edit, and navigate code
       },
     },
     'nvim-treesitter/nvim-treesitter-textobjects',
+    'nvim-treesitter/nvim-treesitter-context'
   },
   config = function(_, opts)
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`

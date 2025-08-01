@@ -129,11 +129,11 @@ return { -- Autocompletion
           -- Set `kind` to "$icon $kind".
           vim_item.kind = string.format('%s %s', lsp_kinds[vim_item.kind], vim_item.kind)
           vim_item.menu = ({
-            supermaven = '[SuperMaven]',
             buffer = '[Buffer]',
             nvim_lsp = '[LSP]',
             luasnip = '[LuaSnip]',
             nvim_lua = '[Lua]',
+            supermaven = '[SuperMaven]',
             latex_symbols = '[LaTeX]',
           })[entry.source.name]
           return vim_item
@@ -201,17 +201,17 @@ return { -- Autocompletion
 
       sources = {
         { name = 'luasnip' },
-        { name = 'supermaven' },
         { name = 'nvim_lsp' },
         { name = 'nvim_lsp_signature_help' },
         { name = 'buffer' },
+        { name = 'supermaven' },
         { name = 'calc' },
         { name = 'emoji' },
-        { name = 'path' },
+        -- { name = 'path' },
       },
 
       experimental = {
-        ghost_text = true,
+        -- ghost_text = true,
       },
     }
     -- Only show ghost text at word boundaries, not inside keywords. Based on idea

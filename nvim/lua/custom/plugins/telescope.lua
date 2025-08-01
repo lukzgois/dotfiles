@@ -64,7 +64,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
             prompt_position = 'bottom',
             width = { padding = 0 },
             height = { padding = 0 },
-            preview_width = 0.5
+            preview_width = 0.3
           }
         },
         sorting_strategy = 'descending'
@@ -98,6 +98,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
     -- Enable telescope extensions, if they are installed
     pcall(require('telescope').load_extension, 'fzf')
     pcall(require('telescope').load_extension, 'ui-select')
+    pcall(require('telescope').load_extension, 'dap')
     require("telescope").load_extension('cmdline')
 
     -- See `:help telescope.builtin`

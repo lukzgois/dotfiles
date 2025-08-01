@@ -24,7 +24,7 @@
     # dynamic width from 0 to 300
     # width = (0, 300)
     # constant width of 300
-    width = 300
+    width = 350
 
     # The height of a single notification, excluding the frame.
     height = (0, 300)
@@ -33,7 +33,7 @@
     origin = top-right
 
     # Offset from the origin
-    offset = (10, 50)
+    offset = (6, 41)
 
     # Scale factor. It is auto-detected if value is 0.
     scale = 0
@@ -61,14 +61,14 @@
     progress_bar_max_width = 300
 
     # Corner radius for the progress bar. 0 disables rounded corners.
-    progress_bar_corner_radius = 0
+    progress_bar_corner_radius = 4
 
     # Define which corners to round when drawing the progress bar. If progress_bar_corner_radius
     # is set to 0 this option will be ignored.
     progress_bar_corners = all
 
     # Corner radius for the icon image.
-    icon_corner_radius = 0
+    icon_corner_radius = 4
 
     # Define which corners to round when drawing the icon image. If icon_corner_radius
     # is set to 0 this option will be ignored.
@@ -90,26 +90,26 @@
     separator_height = 2
 
     # Padding between text and separator.
-    padding = 8
+    padding = 10
 
     # Horizontal padding.
-    horizontal_padding = 8
+    horizontal_padding = 20
 
     # Padding between text and icon.
-    text_icon_padding = 0
+    text_icon_padding = 2
 
     # Defines width in pixels of frame around the notification window.
     # Set to 0 to disable.
-    frame_width = 3
+    frame_width = 1
 
     # Defines color of the frame around the notification window.
-    frame_color = "#aaaaaa"
+    frame_color = "#ff0000"
 
     # Size of gap to display between notifications - requires a compositor.
     # If value is greater than 0, separator_height will be ignored and a border
     # of size frame_width will be drawn around each notification instead.
     # Click events on gaps do not currently propagate to applications below.
-    gap_size = 0
+    gap_size = 10
 
     # Define a color for the separator.
     # possible values are:
@@ -125,7 +125,7 @@
     #  * urgency_ascending: sort by urgency (low then normal then critical)
     #  * urgency_descending: sort by urgency (critical then normal then low)
     #  * update: sort by update (most recent always at the top)
-    sort = yes
+    sort = no
 
     # Don't remove messages, if the user is idle (no mouse or keyboard input)
     # for longer than idle_threshold seconds.
@@ -176,7 +176,7 @@
     #   %n  progress value if set without any extra characters
     #   %%  Literal %
     # Markup is allowed
-    format = "<b>%s</b>\n%b"
+    format = "<small>%a</small>\n<b>%s</b>\n%b"
 
     # Alignment of message text.
     # Possible values are "left", "center" and "right".
@@ -227,7 +227,7 @@
     min_icon_size = 32
 
     # Scale larger icons down to this size, set to 0 to disable
-    max_icon_size = 128
+    max_icon_size = 64
 
     # Paths to default icons (only necessary when not using recursive icon lookup)
     icon_path = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
@@ -264,7 +264,7 @@
     # corners.
     # The radius will be automatically lowered if it exceeds half of the
     # notification height to avoid clipping text and/or icons.
-    corner_radius = 0
+    corner_radius = 10
 
     # Define which corners to round when drawing the window. If the corner radius
     # is set to 0 this option will be ignored.
@@ -486,15 +486,16 @@
 #
 # vim: ft=cfg
 [global]
-frame_color = "#8aadf4"
-separator_color= frame
+# frame_color = "#8aadf4"
+frame_color = "#24273a"
+separator_color = auto
 
 [urgency_low]
 background = "#24273a"
 foreground = "#cad3f5"
 
 [urgency_normal]
-background = "#24273a"
+background = "#383c4a"
 foreground = "#cad3f5"
 
 [urgency_critical]

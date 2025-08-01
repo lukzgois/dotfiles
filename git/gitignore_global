@@ -20,3 +20,4 @@ _ide_helper.php
 .rgignore
 
 run_quality_checks.sh
+.local_scripts/*

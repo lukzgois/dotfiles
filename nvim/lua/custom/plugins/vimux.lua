@@ -8,7 +8,7 @@ return {
     { "<leader>vc", ":VimuxCloseRunner<CR>" },
   },
   init = function()
-    -- vim.g.VimuxOrientation = "v"
-    -- vim.g.VimuxOpenExtraArgs = "-b"
+    vim.g.VimuxOrientation = "h"
+    vim.g.VimuxOpenExtraArgs = "-b"
   end,
 }
