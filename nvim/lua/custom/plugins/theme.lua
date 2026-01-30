@@ -4,7 +4,10 @@ return {
     name = 'catppuccin',
     priority = 1000,
     config = function()
-      -- require('catppuccin').setup {
+      require('catppuccin').setup {
+        flavour = 'macchiato',
+        term_colors = true,
+
       --   custom_highlights = function (colors)
       --     return {
       --       TelescopeNormal = { fg = colors.base, bg = colors.base },
@@ -13,9 +16,9 @@ return {
       --       TelescopePromptBorder = { bg = colors.base, fg = colors.base },
       --     }
       --   end,
-      -- }
+      }
 
-      vim.cmd.colorscheme 'catppuccin-macchiato'
+      vim.cmd.colorscheme 'catppuccin'
       --
       -- -- You can configure highlights by doing something like
       -- vim.cmd.hi 'Comment gui=none'

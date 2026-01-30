@@ -1,5 +1,6 @@
 return {
   -- Smooth scrolling for ANY command 🤯. A highly customizable Neovim plugin written in Lua!
+  enabled = false,
   "declancm/cinnamon.nvim",
   version = "*", -- use latest release
   opts = {

@@ -21,7 +21,7 @@ return {
       function! FloatermStrategy(cmd)
         execute 'silent FloatermSend q'
         execute 'silent FloatermKill'
-        execute 'FloatermNew! '.a:cmd.' |less -X'
+        execute 'FloatermNew! '. a:cmd
       endfunction
 
       function! EscapeSpecialChars(path)
@@ -34,9 +34,9 @@ return {
       endfunction
 
       let g:test#custom_transformations = {'escape_special': function('EscapeSpecialChars')}
-      let g:test#transformation = 'escape_special'
+      " let g:test#transformation = 'escape_special'
       let g:test#custom_strategies = {'floatermcustom': function('FloatermStrategy')}
-      let g:test#strategy = 'vimux'
+      let g:test#strategy = 'floatermcustom'
     ]]
   end,
 }

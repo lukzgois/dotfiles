@@ -3,4 +3,4 @@
 # Launch kmonad
 
 killall -q kmonad
-kmonad ~/.config/kmonad/home-row.kbd
+kmonad ~/.config/kmonad/home-row.kbd > /dev/null 2>&1 &

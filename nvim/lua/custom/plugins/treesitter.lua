@@ -42,7 +42,7 @@ return { -- Highlight, edit, and navigate code
       },
     },
     'nvim-treesitter/nvim-treesitter-textobjects',
-    'nvim-treesitter/nvim-treesitter-context'
+    -- 'nvim-treesitter/nvim-treesitter-context'
   },
   config = function(_, opts)
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
@@ -60,10 +60,15 @@ return { -- Highlight, edit, and navigate code
     }
     vim.filetype.add {
       pattern = {
-        ['.*%.blade%.php'] = 'blade',
+        ['.*%.blade.php'] = 'blade',
       },
     }
 
     require('nvim-treesitter.configs').setup(opts)
+
+    -- require('treesitter-context').setup({
+    --   enabled = false,
+    --   max_lines = 0
+    -- })
   end,
 }

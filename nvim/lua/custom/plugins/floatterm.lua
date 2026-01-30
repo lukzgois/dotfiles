@@ -9,13 +9,13 @@ return {
   },
   cmd = { 'FloatermToggle' },
   init = function()
-    vim.g.floaterm_width = 0.8
-    vim.g.floaterm_height = 0.8
+    vim.g.floaterm_width = 0.95
+    vim.g.floaterm_height = 0.95
   end,
-  config = function()
-    vim.cmd [[
-      highligh link Floaterm CursorLine
-      highligh link FloatermBorder CursorLineBg
-    ]]
-  end,
+  -- config = function()
+  --   vim.cmd [[
+  --     highligh link Floaterm CursorLine
+  --     highligh link FloatermBorder CursorLineBg
+  --   ]]
+  -- end,
 }

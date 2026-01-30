@@ -20,7 +20,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
     { 'nvim-telescope/telescope-ui-select.nvim' },
 
     -- Useful for getting pretty icons, but requires a Nerd Font.
-    { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
+    { 'nvim-tree/nvim-web-devicons',            enabled = vim.g.have_nerd_font },
   },
   keys = {
     { ':', '<cmd>Telescope cmdline<cr>', desc = 'Cmdline' }
@@ -59,12 +59,18 @@ return { -- Fuzzy Finder (files, lsp, etc)
       -- pickers = {}
       defaults = {
         layout_strategy = 'horizontal',
+        file_ignore_patterns = {
+          "^\\.git/",
+          "node_modules",
+          "%.pyc",
+          "%.class",
+        },
         layout_config = {
           horizontal = {
             prompt_position = 'bottom',
             width = { padding = 0 },
             height = { padding = 0 },
-            preview_width = 0.3
+            preview_width = 0
           }
         },
         sorting_strategy = 'descending'
@@ -84,7 +90,14 @@ return { -- Fuzzy Finder (files, lsp, etc)
       },
       pickers = {
         find_files = {
-          hidden = true
+          find_command = {
+            "fd",
+            "--type", "f",
+            "--hidden",
+            "--follow",
+            "--exclude", ".git",
+            "--exclude", "node_modules"
+          },
         },
         buffers = {
           previewer = false,
@@ -144,8 +157,8 @@ return { -- Fuzzy Finder (files, lsp, etc)
       builtin.find_files { cwd = vim.fn.stdpath 'config' }
     end, { desc = '[S]earch [N]eovim files' })
 
-    vim.keymap.set('n', '<leader>ss', function ()
+    vim.keymap.set('n', '<leader>ss', function()
       builtin.lsp_document_symbols()
-    end, { desc = '[S]earch document [S]ymbols'})
+    end, { desc = '[S]earch document [S]ymbols' })
   end,
 }

@@ -92,9 +92,9 @@ return { -- LSP Configuration & Plugins
 
         -- Execute a code action, usually your cursor needs to be on top of an error
         -- or a suggestion from your LSP for this to activate.
-        require('which-key').add({
-          { "<leader>c", group = "[C]ode" }
-        })
+        require('which-key').add {
+          { '<leader>c', group = '[C]ode' },
+        }
         map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
         -- Opens a popup that displays documentation about the word under your cursor
@@ -112,10 +112,10 @@ return { -- LSP Configuration & Plugins
         -- When you move your cursor, the highlights will be cleared (the second autocommand).
         local client = vim.lsp.get_client_by_id(event.data.client_id)
         if client and client.server_capabilities.documentHighlightProvider then
-          -- vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
-          --   buffer = event.buf,
-          --   callback = vim.lsp.buf.document_highlight,
-          -- })
+          vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+            buffer = event.buf,
+            callback = vim.lsp.buf.document_highlight,
+          })
 
           vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
             buffer = event.buf,
@@ -143,23 +143,7 @@ return { -- LSP Configuration & Plugins
     --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
     local servers = {
       ts_ls = {},
-
-      lua_ls = {
-        settings = {
-          Lua = {
-           diagnostics = {
-              disable = { "missing-fields" },
-              globals = { 'vim' },
-            },
-            telemetry = {
-              enable = false,
-            },
-            completion = {
-              callSnippet = 'Replace',
-            },
-          },
-        }
-      },
+      lua_ls = {},
     }
 
     -- Ensure the servers and tools above are installed
@@ -169,6 +153,7 @@ return { -- LSP Configuration & Plugins
     --
     --  You can press `g?` for help in this menu
     require('mason').setup()
+    require('mason-lspconfig').setup()
 
     -- You can add other tools here that you want Mason to install
     -- for you, so that they are available from within Neovim.
@@ -176,106 +161,72 @@ return { -- LSP Configuration & Plugins
     vim.list_extend(ensure_installed, {
       'stylua', -- Used to format lua code
       'prettierd',
+      'intelephense',
+      'eslint'
+      -- 'phpactor',
     })
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
-    -- require('mason-lspconfig').setup {
-    --   ensure_installed = ensure_installed,
-    --   automatic_enable = true,
-    -- }
-
-    -- lua
-    require('lspconfig').lua_ls.setup(servers.lua_ls)
-
-    require('lspconfig').ts_ls.setup(servers.ts_ls)
-
     -- PHP
-    require('lspconfig').intelephense.setup {
-      commands = {
-        IntelephenseIndex = {
-          function()
-            vim.lsp.buf.execute_command { command = 'intelephense.index.workspace' }
-          end,
-        },
-      },
-      on_attach = function(client, bufnr)
-        client.server_capabilities.documentFormattingProvider = false
-        client.server_capabilities.documentRangeFormattingProvider = false
-        -- if client.server_capabilities.inlayHintProvider then
-        --   vim.lsp.buf.inlay_hint(bufnr, true)
-        -- end
-      end,
-      capabilities = capabilities,
-    }
+    -- lspconfig("intelephense", {
+    --   commands = {
+    --     IntelephenseIndex = {
+    --       function()
+    --         vim.lsp.buf.execute_command { command = 'intelephense.index.workspace' }
+    --       end,
+    --     },
+    --   },
+    --   on_attach = function(client, bufnr)
+    --     -- client.server_capabilities.documentFormattingProvider = false
+    --     -- client.server_capabilities.documentRangeFormattingProvider = false
+    --     -- if client.server_capabilities.inlayHintProvider then
+    --     --   vim.lsp.buf.inlay_hint(bufnr, true)
+    --     -- end
+    --   end,
+    --   capabilities = capabilities,
+    -- })
 
-    -- require 'lspconfig'.phpactor.setup {
+    -- lspconfig('phpactor', {
     --   -- on_attach = on_attach,
     --   capabilities = capabilities,
     --   init_options = {
     --     ["language_server_phpstan.enabled"] = false,
     --     ["language_server_psalm.enabled"] = false,
     --   }
-    -- }
+    -- })
 
-    require('lspconfig').tailwindcss.setup {}
-
-    require('lspconfig').volar.setup {
-      -- filetypes = {'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json'},
-      -- init_options = {
-      --   vue = {
-      --     hybridMode = false,
-      --   },
-      -- },
-    }
+    -- lspconfig("volar", {
+    -- filetypes = {'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json'},
+    -- init_options = {
+    --   vue = {
+    --     hybridMode = false,
+    --   },
+    -- },
+    -- })
 
     -- JSON
-    require('lspconfig').jsonls.setup {
-      capabilities = capabilities,
-      settings = {
-        json = {
-          schemas = require('schemastore').json.schemas(),
-        },
-      },
-    }
-
-    -- Ruby
-    require('lspconfig').ruby_lsp.setup({
-      init_options = {
-        formatter = 'standard',
-        linters = { 'standard' },
-      },
-    })
-
-    -- Emmet
-    -- capabilities.textDocument.completion.completionItem.snippetSupport = true
-    -- require 'lspconfig'.emmet_ls.setup({
-    --   -- on_attach = on_attach,
+    -- lspconfig("jsonls", {
     --   capabilities = capabilities,
-    --   filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "svelte", "pug", "typescriptreact", "vue" },
-    --   init_options = {
-    --     html = {
-    --       options = {
-    --         -- For possible options, see: https://github.com/emmetio/emmet/blob/master/src/config.ts#L79-L267
-    --         ["bem.enabled"] = true,
-    --       },
+    --   settings = {
+    --     json = {
+    --       schemas = require('schemastore').json.schemas(),
     --     },
-    --   }
+    --   },
     -- })
 
     -- null-ls
     local null_ls = require 'null-ls'
-    local extras = require("none-ls.diagnostics.eslint_d")
+    local extras = require 'none-ls.diagnostics.eslint_d'
     null_ls.register(extras)
 
     local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
     null_ls.setup {
       temp_dir = '/tmp',
       sources = {
-        require('none-ls.formatting.eslint_d').with { disabled_filetypes = { 'NvimTree' } },
+        -- require('none-ls.formatting.eslint_d').with { disabled_filetypes = { 'NvimTree' } },
+        null_ls.builtins.diagnostics.trail_space.with { disabled_filetypes = { 'NvimTree' } },
 
         -- null_ls.builtins.diagnostics.phpstan, -- TODO: Only if config file
-
-        null_ls.builtins.diagnostics.trail_space.with { disabled_filetypes = { 'NvimTree' } },
 
         null_ls.builtins.formatting.pint.with {
           condition = function(utils)
@@ -289,27 +240,25 @@ return { -- LSP Configuration & Plugins
           end,
         },
       },
-      on_attach = function(client, bufnr)
-        if client.supports_method 'textDocument/formatting' then
-          vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
-          -- vim.api.nvim_create_autocmd('BufWritePre', {
-          --   group = augroup,
-          --   buffer = bufnr,
-          --   callback = function()
-          --     vim.lsp.buf.format { bufnr = bufnr, timeout_ms = 5000 }
-          --   end,
-          -- })
-        end
-      end,
+      -- on_attach = function(client, bufnr)
+      -- if client.supports_method 'textDocument/formatting' then
+      --   vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
+      --   vim.api.nvim_create_autocmd('BufWritePre', {
+      --     group = augroup,
+      --     buffer = bufnr,
+      --     callback = function()
+      --       vim.lsp.buf.format { bufnr = bufnr, timeout_ms = 5000 }
+      --     end,
+      --   })
+      -- end
+      -- end,
     }
-
-    require('mason-null-ls').setup { automatic_installation = true, ensure_installed = ensure_installed }
 
     -- Commands
     vim.api.nvim_create_user_command('Format', function()
       vim.lsp.buf.format { timeout_ms = 5000 }
     end, {})
-    vim.keymap.set("n", "<leader>f", function()
+    vim.keymap.set('n', '<leader>f', function()
       vim.lsp.buf.format { timeout_ms = 5000 }
     end, { noremap = true, silent = true })
 
