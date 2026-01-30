@@ -19,25 +19,12 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias cl='clear'
 
-# Folder shortcuts
-alias gdev='cd ~/Development'
-alias gdow='cd ~/Downloads'
-alias gdoc='cd ~/Documents'
-
-# Composer
-alias c="composer"
-
 # Git
 alias gt="git status"
 alias gc="git commit"
 alias gck="git checkout"
 alias gll="git log -1" # check last commit
 alias lg="lazygit"
-
-# Docker
-alias docker-clean="docker rm \$(docker ps -aqf 'status=exited' -f 'status=dead')"
-alias docker-clean-images="docker rmi \$(docker images -f 'dangling=true' -q)"
-alias dcc="docker-compose"
 
 #Laravel
 alias art="php artisan"

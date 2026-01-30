@@ -4,12 +4,35 @@ return {
     name = 'catppuccin',
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme 'catppuccin-macchiato'
+      require('catppuccin').setup {
+        flavour = 'macchiato',
+        term_colors = true,
 
-      -- You can configure highlights by doing something like
-      vim.cmd.hi 'Comment gui=none'
+      --   custom_highlights = function (colors)
+      --     return {
+      --       TelescopeNormal = { fg = colors.base, bg = colors.base },
+      --       TelescopeBorder = { bg = colors.none },
+      --       TelescopePromptNormal = { bg = colors.overlay2 },
+      --       TelescopePromptBorder = { bg = colors.base, fg = colors.base },
+      --     }
+      --   end,
+      }
+
+      vim.cmd.colorscheme 'catppuccin'
+      --
+      -- -- You can configure highlights by doing something like
+      -- vim.cmd.hi 'Comment gui=none'
     end,
   },
+
+  -- lua/plugins/rose-pine.lua
+  {
+    "rose-pine/neovim",
+    name = "rose-pine",
+    config = function()
+      -- vim.cmd("colorscheme rose-pine-moon")
+    end
+  }
   --
   -- {
   --   -- You can easily change to a different colorscheme.

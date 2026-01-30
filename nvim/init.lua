@@ -149,8 +149,8 @@ vim.opt.inccommand = 'split'
 vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
-vim.opt.scrolloff = 6
-vim.opt.sidescrolloff = 6
+vim.opt.scrolloff = 10
+vim.opt.sidescrolloff = 10
 
 vim.opt.cmdheight = 0
 
@@ -164,8 +164,7 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 -- General keymaps
 vim.keymap.set('i', 'jj', '<ESC>', { desc = 'Exit insert mode with jj' })
 vim.keymap.set('n', '<C-s>', ':w<CR>', { desc = 'Save with CRTL+S' })
--- vim.keymap.set('n', '<C-ENTER>', 'O<ESC>', { desc = 'Insert a blank line before the current line' })
--- vim.keymap.set('n', '<ENTER>', 'o<ESC>', { desc = 'Insert a blank line after the current line' })
+vim.keymap.set('n', '<C-q>', ':q<CR>', { desc = 'Quit with CRTL+Q' })
 
 vim.keymap.set('v', '<', '<gv', { desc = 'Indent and immediately re-select the previous visual selection' })
 vim.keymap.set('v', '>', '>gv', { desc = 'Indent and immediately re-select the previous visual selection' })
@@ -180,10 +179,10 @@ vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = tr
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Easy insertion of a trailing ; or , from insert mode.
-vim.keymap.set('i', ';;', '<Esc>A;')
-vim.keymap.set('i', ',,', '<Esc>A,')
-vim.keymap.set('n', ';;', '<Esc>A;<Esc>')
-vim.keymap.set('n', ',,', '<Esc>A,<Esc>')
+vim.keymap.set('i', '<leader>;', '<Esc>A;')
+vim.keymap.set('i', '<leader>,', '<Esc>A,')
+vim.keymap.set('n', '<leader>;', '<Esc>A;<Esc>')
+vim.keymap.set('n', '<leader>,', '<Esc>A,<Esc>')
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
@@ -191,13 +190,16 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagn
 vim.keymap.set('n', '<leader>de', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
 vim.keymap.set('n', '<leader>dq', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
+vim.keymap.set('n', '<C-d>', '<C-d>zz')
+vim.keymap.set('n', '<C-u>', '<C-u>zz')
+
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
 -- is not what someone will guess without a bit more experience.
 --
 -- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
 -- or just use <C-\><C-n> to exit terminal mode
-vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 -- TIP: Disable arrow keys in normal mode
 -- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
@@ -230,17 +232,7 @@ vim.opt.titlestring = '%f // nvim'
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
-
--- Highlight when yanking (copying) text
---  Try it with `yap` in normal mode
---  See `:help vim.highlight.on_yank()`
-vim.api.nvim_create_autocmd('TextYankPost', {
-  desc = 'Highlight when yanking (copying) text',
-  group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
-  callback = function()
-    vim.highlight.on_yank()
-  end,
-})
+require 'autocmds'
 
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
@@ -285,6 +277,16 @@ require('lazy').setup({
     },
   },
 })
+
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldtext = ""
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 7
+
+vim.opt.conceallevel = 1
+
+require('neovide')
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

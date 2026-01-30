@@ -15,7 +15,7 @@ return { -- LSP Configuration & Plugins
     { 'folke/neodev.nvim', opts = {} },
     'b0o/schemastore.nvim',
 
-    { 'jose-elias-alvarez/null-ls.nvim', dependencies = 'nvim-lua/plenary.nvim' },
+    { 'nvimtools/none-ls.nvim', dependencies = { 'nvim-lua/plenary.nvim', 'nvimtools/none-ls-extras.nvim' } },
     'jayp0521/mason-null-ls.nvim',
   },
   config = function()
@@ -92,6 +92,9 @@ return { -- LSP Configuration & Plugins
 
         -- Execute a code action, usually your cursor needs to be on top of an error
         -- or a suggestion from your LSP for this to activate.
+        require('which-key').add {
+          { '<leader>c', group = '[C]ode' },
+        }
         map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
         -- Opens a popup that displays documentation about the word under your cursor
@@ -139,34 +142,8 @@ return { -- LSP Configuration & Plugins
     --  - settings (table): Override the default settings passed when initializing the server.
     --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
     local servers = {
-      -- clangd = {},
-      -- gopls = {},
-      -- pyright = {},
-      -- rust_analyzer = {},
-      -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
-      --
-      -- Some languages (like typescript) have entire language plugins that can be useful:
-      --    https://github.com/pmizio/typescript-tools.nvim
-      --
-      -- But for many setups, the LSP (`tsserver`) will work just fine
       ts_ls = {},
-      -- volar = {},
-      -- emmet_ls = {},
-
-      lua_ls = {
-        -- cmd = {...},
-        -- filetypes { ...},
-        -- capabilities = {},
-        settings = {
-          Lua = {
-            completion = {
-              callSnippet = 'Replace',
-            },
-            -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-            -- diagnostics = { disable = { 'missing-fields' } },
-          },
-        },
-      },
+      lua_ls = {},
     }
 
     -- Ensure the servers and tools above are installed
@@ -176,6 +153,7 @@ return { -- LSP Configuration & Plugins
     --
     --  You can press `g?` for help in this menu
     require('mason').setup()
+    require('mason-lspconfig').setup()
 
     -- You can add other tools here that you want Mason to install
     -- for you, so that they are available from within Neovim.
@@ -183,170 +161,106 @@ return { -- LSP Configuration & Plugins
     vim.list_extend(ensure_installed, {
       'stylua', -- Used to format lua code
       'prettierd',
+      'intelephense',
+      'eslint'
+      -- 'phpactor',
     })
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
-    require('mason-lspconfig').setup {
-      automatic_installation = true,
-
-      handlers = {
-        function(server_name)
-          -- https://github.com/neovim/nvim-lspconfig/pull/3232
-          if server_name == "tsserver" then
-            server_name = "ts_ls"
-          end
-          local server = servers[server_name] or {}
-          -- This handles overriding only values explicitly passed
-          -- by the server configuration above. Useful when disabling
-          -- certain features of an LSP (for example, turning off formatting for tsserver)
-          server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-
-
-          require('lspconfig')[server_name].setup(server)
-        end,
-      },
-      capabilities = capabilities,
-    }
-
     -- PHP
-    require('lspconfig').intelephense.setup {
-      commands = {
-        IntelephenseIndex = {
-          function()
-            vim.lsp.buf.execute_command { command = 'intelephense.index.workspace' }
-          end,
-        },
-      },
-      on_attach = function(client, bufnr)
-        client.server_capabilities.documentFormattingProvider = false
-        client.server_capabilities.documentRangeFormattingProvider = false
-        -- if client.server_capabilities.inlayHintProvider then
-        --   vim.lsp.buf.inlay_hint(bufnr, true)
-        -- end
-      end,
-      capabilities = capabilities,
-    }
+    -- lspconfig("intelephense", {
+    --   commands = {
+    --     IntelephenseIndex = {
+    --       function()
+    --         vim.lsp.buf.execute_command { command = 'intelephense.index.workspace' }
+    --       end,
+    --     },
+    --   },
+    --   on_attach = function(client, bufnr)
+    --     -- client.server_capabilities.documentFormattingProvider = false
+    --     -- client.server_capabilities.documentRangeFormattingProvider = false
+    --     -- if client.server_capabilities.inlayHintProvider then
+    --     --   vim.lsp.buf.inlay_hint(bufnr, true)
+    --     -- end
+    --   end,
+    --   capabilities = capabilities,
+    -- })
 
-    -- require 'lspconfig'.phpactor.setup {
+    -- lspconfig('phpactor', {
     --   -- on_attach = on_attach,
     --   capabilities = capabilities,
     --   init_options = {
     --     ["language_server_phpstan.enabled"] = false,
     --     ["language_server_psalm.enabled"] = false,
     --   }
-    -- }
+    -- })
 
-    -- If you are using mason.nvim, you can get the ts_plugin_path like this
-    local mason_registry = require('mason-registry')
-    local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path() ..
-    '/node_modules/@vue/language-server'
-    require 'lspconfig'.ts_ls.setup {
-      init_options = {
-        plugins = {
-          {
-            name = '@vue/typescript-plugin',
-            location = vue_language_server_path,
-            languages = { 'vue' },
-          },
-        },
-      },
-      filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
-    }
-
-    require('lspconfig').tailwindcss.setup {}
-
-    require('lspconfig').volar.setup {
-      -- filetypes = {'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json'},
-      -- init_options = {
-      --   vue = {
-      --     hybridMode = false,
-      --   },
-      -- },
-    }
+    -- lspconfig("volar", {
+    -- filetypes = {'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json'},
+    -- init_options = {
+    --   vue = {
+    --     hybridMode = false,
+    --   },
+    -- },
+    -- })
 
     -- JSON
-    require('lspconfig').jsonls.setup {
-      capabilities = capabilities,
-      settings = {
-        json = {
-          schemas = require('schemastore').json.schemas(),
-        },
-      },
-    }
-
-    -- Ruby
-    require('lspconfig').ruby_lsp.setup({
-      init_options = {
-        formatter = 'standard',
-        linters = { 'standard' },
-      },
-    })
-
-    -- Emmet
-    -- capabilities.textDocument.completion.completionItem.snippetSupport = true
-    -- require 'lspconfig'.emmet_ls.setup({
-    --   -- on_attach = on_attach,
+    -- lspconfig("jsonls", {
     --   capabilities = capabilities,
-    --   filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "svelte", "pug", "typescriptreact", "vue" },
-    --   init_options = {
-    --     html = {
-    --       options = {
-    --         -- For possible options, see: https://github.com/emmetio/emmet/blob/master/src/config.ts#L79-L267
-    --         ["bem.enabled"] = true,
-    --       },
+    --   settings = {
+    --     json = {
+    --       schemas = require('schemastore').json.schemas(),
     --     },
-    --   }
+    --   },
     -- })
 
     -- null-ls
     local null_ls = require 'null-ls'
+    local extras = require 'none-ls.diagnostics.eslint_d'
+    null_ls.register(extras)
+
     local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
     null_ls.setup {
       temp_dir = '/tmp',
       sources = {
-        null_ls.builtins.diagnostics.eslint_d.with {
-          condition = function(utils)
-            return utils.root_has_file { '.eslintrc.js' }
-          end,
-        },
-        -- null_ls.builtins.diagnostics.phpstan, -- TODO: Only if config file
+        -- require('none-ls.formatting.eslint_d').with { disabled_filetypes = { 'NvimTree' } },
         null_ls.builtins.diagnostics.trail_space.with { disabled_filetypes = { 'NvimTree' } },
-        null_ls.builtins.formatting.eslint_d.with {
-          condition = function(utils)
-            return utils.root_has_file { '.eslintrc.js', '.eslintrc.json' }
-          end,
-        },
+
+        -- null_ls.builtins.diagnostics.phpstan, -- TODO: Only if config file
+
         null_ls.builtins.formatting.pint.with {
           condition = function(utils)
             return utils.root_has_file { 'vendor/bin/pint' }
           end,
         },
+
         null_ls.builtins.formatting.prettier.with {
           condition = function(utils)
             return utils.root_has_file { '.prettierrc', '.prettierrc.json', '.prettierrc.yml', '.prettierrc.js', 'prettier.config.js' }
           end,
         },
       },
-      on_attach = function(client, bufnr)
-        if client.supports_method 'textDocument/formatting' then
-          vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
-          -- vim.api.nvim_create_autocmd('BufWritePre', {
-          --   group = augroup,
-          --   buffer = bufnr,
-          --   callback = function()
-          --     vim.lsp.buf.format { bufnr = bufnr, timeout_ms = 5000 }
-          --   end,
-          -- })
-        end
-      end,
+      -- on_attach = function(client, bufnr)
+      -- if client.supports_method 'textDocument/formatting' then
+      --   vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
+      --   vim.api.nvim_create_autocmd('BufWritePre', {
+      --     group = augroup,
+      --     buffer = bufnr,
+      --     callback = function()
+      --       vim.lsp.buf.format { bufnr = bufnr, timeout_ms = 5000 }
+      --     end,
+      --   })
+      -- end
+      -- end,
     }
-
-    require('mason-null-ls').setup { automatic_installation = true }
 
     -- Commands
     vim.api.nvim_create_user_command('Format', function()
       vim.lsp.buf.format { timeout_ms = 5000 }
     end, {})
+    vim.keymap.set('n', '<leader>f', function()
+      vim.lsp.buf.format { timeout_ms = 5000 }
+    end, { noremap = true, silent = true })
 
     -- Diagnostic configuration
     vim.diagnostic.config {

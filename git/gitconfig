@@ -2,7 +2,7 @@
     defaultBranch = main
 
 [diff]
-    tool = vimdiff
+    tool = delta
 
 [color]
     ui = auto
@@ -10,12 +10,18 @@
 [core]
     editor = nvim
     excludesfile = ~/.gitignore_global
-    pager = delta
+    pager = delta --diff-so-fancy --side-by-side --line-numbers
+
+[interactive]
+    diffFilter = delta --color-only --side-by-side
 
 [include]
-    path = ~/.gitconfig_local
     path = ~/.gitaliases
 
 [user]
 	email = lucaspgois@gmail.com
 	name = Lucas
+
+[includeIf "gitdir:~/Development/Work/**"]
+  path = ~/.gitconfig-work
+

@@ -1,0 +1,96 @@
+snippet desto "destruct into object" b
+	const { ${0:${VISUAL}} } = ${1:};
+
+snippet desto "destruct into array" b
+	const [ ${0:${VISUAL}} ] = ${1:};
+
+# JSON.parse
+snippet jsonp
+	JSON.parse(${0:jstr});
+
+# JSON.stringify
+snippet jsons
+	JSON.stringify(${0:object});
+
+snippet const
+	const ${1} = ${0};
+snippet let
+	let ${1} = ${0};
+
+# Flow control
+# if
+snippet if "if (condition) { ... }"
+	if (${1:true}) {
+		${0:${VISUAL}}
+	}
+
+# tertiary conditional
+snippet ter Ternary: `condition ? true : false`
+	$1 ? $2: $0
+
+snippet try "try { ... } catch(e) { ... }"
+	try {
+		${0:${VISUAL}}
+	} catch (${1:e}) {
+		${2:/* handle error */}
+	}
+snippet tryf "try { ... } catch(e) { ... } finally { ... }"
+	try {
+		${0:${VISUAL}}
+	} catch (${1:e}) {
+		${2:/* handle error */}
+	} finally {
+		${3:/* be executed regardless of the try / catch result*/}
+	}
+# throw Error
+snippet terr
+	throw new Error('${1:error message}')
+# return
+snippet ret
+	return ${0:result};
+
+# ------ TESTING ------
+snippet des "describe('thing', function() { ... })" b
+	describe('${1:}', () => {
+		${0:${VISUAL}}
+	});
+
+snippet it "it('should do', function() { ... })" b
+	it('${1:}', () => {
+		${0:${VISUAL}}
+	});
+
+snippet xit "xit('should do', function() { ... })" b
+	xit('${1:}', () => {
+		${0:${VISUAL}}
+	});
+
+snippet bef "before(function() { ... })" b
+	before(() => {
+		${0:${VISUAL}}
+	});
+
+snippet befe "beforeEach(function() { ... })" b
+	beforeEach(() => {
+		${0:${VISUAL}}
+	});
+
+snippet aft "after(function() { ... })" b
+	after(() => {
+		${0:${VISUAL}}
+	});
+
+snippet afte "afterEach(function() { ... })" b
+	afterEach(() => {
+		${0:${VISUAL}}
+	});
+
+snippet exp "expect(...)" b
+	expect(${1:})${0};
+
+snippet expe "expect(...).to.equal(...)" b
+	expect(${1:}).to.equal(${0});
+
+snippet expd "expect(...).to.deep.equal(...)" b
+	expect(${1:}).to.deep.equal(${0});
+

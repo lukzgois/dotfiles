@@ -26,6 +26,10 @@ ln -s $DOTFILES/dunst $HOME/.config/dunst
 # TMUX
 ln -sf $DOTFILES/tmux/tmux.conf $HOME/.tmux.conf
 
+# Kanata
+rm -rf $HOME/.config/kanata
+ln -sf $DOTFILES/kanata $HOME/.config/kanata
+
 # ZSH
 ln -sf $DOTFILES/zsh/aliases $HOME/.aliases
 ln -sf $DOTFILES/zsh/functions $HOME/.functions
