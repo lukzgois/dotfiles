@@ -1,0 +1,141 @@
+// -*- mode: jsonc -*-
+{
+  "height": 32, // Waybar height (to be removed for auto height)
+  "spacing": 8, // Gaps between modules (4px)
+  "margin": "8 8 0 8",
+  // Choose the order of the modules
+  "modules-left": [
+    "clock#date",
+    "clock#time"
+  ],
+  "modules-center": [
+    "tray"
+  ],
+  "modules-right": [
+    "pulseaudio",
+    "network",
+    "cpu",
+    "memory",
+    "temperature",
+    "custom/swaync"
+  ],
+  // Modules configuration
+  // "sway/workspaces": {
+  //     "disable-scroll": true,
+  //     "all-outputs": true,
+  //     "warp-on-scroll": false,
+  //     "format": "{name}: {icon}",
+  //     "format-icons": {
+  //         "1": "",
+  //         "2": "",
+  //         "3": "",
+  //         "4": "",
+  //         "5": "",
+  //         "urgent": "",
+  //         "focused": "",
+  //         "default": ""
+  //     }
+  // },
+  "tray": {
+    // "icon-size": 21,
+    "spacing": 10,
+    // "icons": {
+    //   "blueman": "bluetooth",
+    //   "TelegramDesktop": "$HOME/.local/share/icons/hicolor/16x16/apps/telegram.png"
+    // }
+  },
+  "clock#date": {
+    "format": " {:%F (%a)}",
+    "tooltip-format": "<tt><small>{calendar}</small></tt>",
+    "calendar": {
+      "mode": "year",
+      "mode-mon-col": 3,
+      "weeks-pos": "right",
+      "on-scroll": 1,
+      "format": {
+        "months": "<span color='#ffead3'><b>{}</b></span>",
+        "days": "<span color='#ecc6d9'><b>{}</b></span>",
+        "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
+        "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+        "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+      }
+    },
+    "actions": {
+      "on-click-right": "mode",
+      "on-scroll-up": "shift_up",
+      "on-scroll-down": "shift_down"
+    }
+  },
+  "clock#time": {
+    "format": "󰥔 {:%R (%Z)}",
+    "timezones": [
+      "America/Sao_Paulo",
+      "America/New_York"
+    ],
+    "tooltip-format": "<tt><small>{tz_list}</small></tt>",
+    "actions": {
+      "on-click-right": "mode",
+      "on-scroll-up": "tz_up",
+      "on-scroll-down": "tz_down"
+    }
+  },
+  "cpu": {
+    "format": "{usage}% ",
+    "tooltip": false,
+  },
+  "memory": {
+    "format": "{}% ",
+  },
+  "network": {
+    // "interface": "wlp2*", // (Optional) To force the use of this interface
+    "format-wifi": "{essid} ({signalStrength}%) ",
+    "format-ethernet": "{ipaddr}/{cidr} ",
+    "tooltip-format": "{ifname} via {gwaddr} ",
+    "format-linked": "{ifname} (No IP) ",
+    "format-disconnected": "Disconnected ⚠",
+    "format-alt": "{ifname}: {ipaddr}/{cidr}",
+  },
+  "pulseaudio": {
+    // "scroll-step": 1, // %, can be a float
+    "format": "{volume}% {icon} {format_source}",
+    "format-bluetooth": "{volume}% {icon} {format_source}",
+    "format-bluetooth-muted": " {icon} {format_source}",
+    "format-muted": " {format_source}",
+    "format-source": "{volume}% ",
+    "format-source-muted": "",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": [
+        "",
+        "",
+        ""
+      ],
+    },
+    "on-click": "pavucontrol",
+  },
+  "custom/swaync": {
+    "tooltip": true,
+    "format": "<span>{icon}</span>",
+    "format-icons": {
+      "notification": "󱅫",
+      "none": "󰂜",
+      "dnd-notification": "󰂠",
+      "dnd-none": "󰪓",
+      "inhibited-notification": "󰂛",
+      "inhibited-none": "󰪑",
+      "dnd-inhibited-notification": "󰂛",
+      "dnd-inhibited-none": "󰪑"
+    },
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true
+  },
+}

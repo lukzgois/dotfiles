@@ -36,6 +36,14 @@ ln -sf $DOTFILES/zsh/functions $HOME/.functions
 ln -sf $DOTFILES/zsh/colors $HOME/.colors
 ln -sf $DOTFILES/zsh/zshrc $HOME/.zshrc
 
+# Hyprland
+rm -rf $HOME/.config/hypr
+ln -sf $DOTFILES/hypr $HOME/.config/hypr
+
+# Waybar
+rm -rf $HOME/.config/waybar
+ln -sf $DOTFILES/waybar $HOME/.config/waybar
+
 # Scripts
 mkdir -p $HOME/.local/bin
 ln -sf $DOTFILES/scripts/t $HOME/.local/bin/t
