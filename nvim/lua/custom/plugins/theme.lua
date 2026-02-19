@@ -7,6 +7,7 @@ return {
       require('catppuccin').setup {
         flavour = 'macchiato',
         term_colors = true,
+        transparent_background = true,
 
       --   custom_highlights = function (colors)
       --     return {
