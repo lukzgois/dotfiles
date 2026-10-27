@@ -1,74 +1,41 @@
 return { -- Highlight, edit, and navigate code
   'nvim-treesitter/nvim-treesitter',
   event = 'VeryLazy',
-  build = function()
-    require('nvim-treesitter.install').update { with_sync = true }
-  end,
-  opts = {
-    ensure_installed = 'all',
-    -- Autoinstall languages that are not installed
-    auto_install = true,
-    highlight = { enable = true },
-    indent = {
-      enable = true,
-      disabled = { 'yaml' },
-    },
-    rainbow = {
-      enable = true,
-    },
-    textobjects = {
-      select = {
-        enable = true,
-        lookahead = true,
-        keymaps = {
-          ['if'] = '@function.inner',
-          ['af'] = '@function.outer',
-          ['ia'] = '@parameter.inner',
-          ['aa'] = '@parameter.outer',
-        },
-      },
-    },
-  },
+  branch = 'main',
   dependencies = {
-    {
-      'JoosepAlviste/nvim-ts-context-commentstring',
-      opts = {
-        enable_autocmd = false,
-        custom_calculation = function(node, language_tree)
-          if vim.bo.filetype == 'blade' and language_tree._lang ~= 'javascript' then
-            return '{{-- %s --}}'
-          end
-        end,
-      },
-    },
+    'JoosepAlviste/nvim-ts-context-commentstring',
     'nvim-treesitter/nvim-treesitter-textobjects',
-    -- 'nvim-treesitter/nvim-treesitter-context'
+    -- 'nvim-treesitter/nvim-treesitter-context',
   },
-  config = function(_, opts)
-    -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
-    require('ts_context_commentstring').setup(opts)
-    vim.g.skip_ts_context_commentstring_module = true
+  init = function()
+    vim.api.nvim_create_autocmd('FileType', {
+      callback = function()
+        -- Enable treesitter highlighting and disable regex syntax
+        pcall(vim.treesitter.start)
+        -- Enable treesitter-based indentation
+        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+      end,
+    })
 
-    local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
-    parser_config.blade = {
-      install_info = {
-        url = 'https://github.com/EmranMR/tree-sitter-blade',
-        files = { 'src/parser.c' },
-        branch = 'main',
-      },
-      filetype = 'blade',
+    local ensureInstalled = {
+      'lua',
+      'blade',
+      'typescript',
+      'javascript',
+      'tsx',
+      'html',
+      'php',
+      'gdscript',
+      'godot_resource',
+      'gdshader',
     }
-    vim.filetype.add {
-      pattern = {
-        ['.*%.blade.php'] = 'blade',
-      },
-    }
-
-    require('nvim-treesitter.configs').setup(opts)
-
-    -- require('treesitter-context').setup({
-    --   enabled = false,
-    --   max_lines = 0
-    -- })
+    local alreadyInstalled = require('nvim-treesitter.config').get_installed()
+    local parsersToInstall = vim
+      .iter(ensureInstalled)
+      :filter(function(parser)
+        return not vim.tbl_contains(alreadyInstalled, parser)
+      end)
+      :totable()
+    require('nvim-treesitter').install(parsersToInstall)
   end,
 }

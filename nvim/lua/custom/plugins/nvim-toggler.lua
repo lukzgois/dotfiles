@@ -1,6 +1,10 @@
 return {
   'nguyenvukhang/nvim-toggler',
-  config = function ()
-    require('nvim-toggler').setup()
-  end
+  config = function()
+    require('nvim-toggler').setup {
+      inverses = {
+        ['- [ ]'] = '- [x]',
+      },
+    }
+  end,
 }

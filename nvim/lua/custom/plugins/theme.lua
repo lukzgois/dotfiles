@@ -7,50 +7,11 @@ return {
       require('catppuccin').setup {
         flavour = 'macchiato',
         term_colors = true,
-        transparent_background = true,
-
-      --   custom_highlights = function (colors)
-      --     return {
-      --       TelescopeNormal = { fg = colors.base, bg = colors.base },
-      --       TelescopeBorder = { bg = colors.none },
-      --       TelescopePromptNormal = { bg = colors.overlay2 },
-      --       TelescopePromptBorder = { bg = colors.base, fg = colors.base },
-      --     }
-      --   end,
+        transparent_background = false,
       }
 
-      vim.cmd.colorscheme 'catppuccin'
-      --
-      -- -- You can configure highlights by doing something like
-      -- vim.cmd.hi 'Comment gui=none'
+      vim.cmd.colorscheme 'catppuccin-nvim'
+      require('vim._core.ui2').enable()
     end,
   },
-
-  -- lua/plugins/rose-pine.lua
-  {
-    "rose-pine/neovim",
-    name = "rose-pine",
-    config = function()
-      -- vim.cmd("colorscheme rose-pine-moon")
-    end
-  }
-  --
-  -- {
-  --   -- You can easily change to a different colorscheme.
-  --   -- Change the name of the colorscheme plugin below, and then
-  --   -- change the command in the config to whatever the name of that colorscheme is
-  --   --
-  --   -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`
-  --   'folke/tokyonight.nvim',
-  --   priority = 1000, -- make sure to load this before all the other start plugins
-  --   init = function()
-  --     -- Load the colorscheme here.
-  --     -- Like many other themes, this one has different styles, and you could load
-  --     -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-  --     vim.cmd.colorscheme 'tokyonight-night'
-  --
-  --     -- You can configure highlights by doing something like
-  --     vim.cmd.hi 'Comment gui=none'
-  --   end,
-  -- },
 }
