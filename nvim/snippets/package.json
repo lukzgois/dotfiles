@@ -1,0 +1,54 @@
+{
+  "name": "personal-snippets",
+  "contributes": {
+    "snippets": [
+      {
+        "language": [
+          "typescript",
+          "typescriptreact",
+          "javascript"
+        ],
+        "path": "all.json"
+      },
+      {
+        "language": [
+          "typescript",
+          "typescriptreact"
+        ],
+        "path": "typescript.json"
+      },
+      {
+        "language": [
+          "markdown"
+        ],
+        "path": "markdown.json"
+      },
+      {
+        "language": [
+          "javascript",
+          "typescript",
+          "typescriptreact"
+        ],
+        "path": "javascript.json"
+      },
+      {
+        "language": [
+          "php"
+        ],
+        "path": "php.json"
+      },
+      {
+        "language": [
+          "php"
+        ],
+        "path": "phpdoc.json"
+      },
+      {
+        "language": [
+          "gdscript"
+        ],
+        "path": "gdscript.json"
+      }
+    ]
+  }
+}

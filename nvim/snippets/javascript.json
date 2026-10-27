@@ -1,0 +1,61 @@
+{
+  "console log with tag": {
+    "prefix": "consl",
+    "body": ["console.log('[${1:TAG}]', $0)"],
+    "description": "Console log with tag"
+  },
+
+  "console info with tag": {
+    "prefix": "consi",
+    "body": ["console.info('[${1:TAG}]', $0)"],
+    "description": "Console info with tag"
+  },
+
+  "console error with tag": {
+    "prefix": "conse",
+    "body": ["console.error('[${1:TAG}]', $0)"],
+    "description": "Console error with tag"
+  },
+
+  "destruct object": {
+    "prefix": "desto",
+    "body": ["const { $0 } = $1"],
+    "description": "Destruct object into constants"
+  },
+
+  "destruct array": {
+    "prefix": "desta",
+    "body": ["const [ $0 ] = $1"],
+    "description": "Destruct array into constants"
+  },
+
+  "Async function to a const": {
+    "prefix": "acfunc",
+    "body": ["const $1 = async ($2)$3 => {\n\t$0\n}"],
+    "description": "Async function assigned to a const"
+  },
+
+  "function to a const": {
+    "prefix": "cfunc",
+    "body": ["const $1 = ($2)$3 => {\n\t$0\n}"],
+    "description": "Function assigned to a const"
+  },
+
+  "anonymous function": {
+    "prefix": "func",
+    "body": ["($2)$3 => {\n\t$0\n}"],
+    "description": "Anonymous function"
+  },
+
+  "If Statement": {
+    "prefix": "if",
+    "body": ["if (${1:condition}) {", "\t$0", "}"],
+    "description": "If Statement"
+  },
+
+  "use state": {
+    "prefix": "ust",
+    "body": ["const [$3, $4] = useState$1($2)"],
+    "description": "If Statement"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "function": {
+    "prefix": "func",
+    "body": ["func ${1:_ready}($2) -> ${3:void}:", "\tpass"],
+    "description": "Function"
+  },
+  "exportVar": {
+    "prefix": "export",
+    "body": ["@export var $1: $2"]
+  }
+}

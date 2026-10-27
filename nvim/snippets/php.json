@@ -1,0 +1,11 @@
+{
+  "function …": {
+    "prefix": "fun",
+    "body": [
+      "${1:public} function ${2:FunctionName}(${3:arg}): ${4:void} {",
+      "\t$0",
+      "}"
+    ],
+    "description": "Function"
+  }
+}
