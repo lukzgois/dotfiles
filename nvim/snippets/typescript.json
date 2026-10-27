@@ -1,0 +1,25 @@
+{
+  "describeBlock": {
+    "prefix": "desc",
+    "body": ["describe('$1', () => {", "  $0", "})", ""],
+    "description": "Testing `describe` block"
+  },
+
+  "testBlock": {
+    "prefix": "test",
+    "body": ["test('$1', () => {", "  $0", "})", ""],
+    "description": "Testing `test` block"
+  },
+
+  "itBlock": {
+    "prefix": "its",
+    "body": ["it('$1', () => {", "  $0", "})", ""],
+    "description": "Testing `it` block"
+  },
+
+  "itAsyncBlock": {
+    "prefix": "ita",
+    "body": ["it('$1', async () => {", "  $0", "})", ""],
+    "description": "Testing async `it` block"
+  }
+}

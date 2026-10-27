@@ -1,0 +1,2 @@
+-- TODO(hyprvalidate convert): 'submap' isn't a modeled top-level directive (hyprland.conf line 370)
+-- TODO(hyprvalidate convert): 'submap' isn't a modeled top-level directive (hyprland.conf line 413)

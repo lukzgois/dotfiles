@@ -3,7 +3,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
   event = 'VimEnter',
   dependencies = {
     'nvim-lua/plenary.nvim',
-    'jonarrien/telescope-cmdline.nvim',
+    -- 'jonarrien/telescope-cmdline.nvim',
     { -- If encountering errors, see telescope-fzf-native README for install instructions
       'nvim-telescope/telescope-fzf-native.nvim',
 
@@ -20,11 +20,11 @@ return { -- Fuzzy Finder (files, lsp, etc)
     { 'nvim-telescope/telescope-ui-select.nvim' },
 
     -- Useful for getting pretty icons, but requires a Nerd Font.
-    { 'nvim-tree/nvim-web-devicons',            enabled = vim.g.have_nerd_font },
+    { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
   },
-  keys = {
-    { ':', '<cmd>Telescope cmdline<cr>', desc = 'Cmdline' }
-  },
+  -- keys = {
+  --   { ':', '<cmd>Telescope cmdline<cr>', desc = 'Cmdline' }
+  -- },
   config = function()
     -- Telescope is a fuzzy finder that comes with a lot of different things that
     -- it can fuzzy find! It's more than just a "file finder", it can search
@@ -60,43 +60,46 @@ return { -- Fuzzy Finder (files, lsp, etc)
       defaults = {
         layout_strategy = 'horizontal',
         file_ignore_patterns = {
-          "^\\.git/",
-          "node_modules",
-          "%.pyc",
-          "%.class",
+          '^\\.git/',
+          'node_modules',
+          '%.pyc',
+          '%.class',
         },
         layout_config = {
           horizontal = {
             prompt_position = 'bottom',
             width = { padding = 0 },
             height = { padding = 0 },
-            preview_width = 0
-          }
+            preview_width = 0,
+          },
         },
-        sorting_strategy = 'descending'
+        sorting_strategy = 'descending',
       },
       extensions = {
         ['ui-select'] = {
           require('telescope.themes').get_dropdown(),
         },
-        cmdline = {
-          picker = {
-            layout_config = {
-              width  = 100,
-              height = 10,
-            }
-          },
-        }
+        -- cmdline = {
+        --   picker = {
+        --     layout_config = {
+        --       width  = 100,
+        --       height = 10,
+        --     }
+        --   },
+        -- }
       },
       pickers = {
         find_files = {
           find_command = {
-            "fd",
-            "--type", "f",
-            "--hidden",
-            "--follow",
-            "--exclude", ".git",
-            "--exclude", "node_modules"
+            'fd',
+            '--type',
+            'f',
+            '--hidden',
+            '--follow',
+            '--exclude',
+            '.git',
+            '--exclude',
+            'node_modules',
           },
         },
         buffers = {
@@ -104,21 +107,21 @@ return { -- Fuzzy Finder (files, lsp, etc)
           layout_config = {
             width = 0.9,
           },
-        }
-      }
+        },
+      },
     }
 
     -- Enable telescope extensions, if they are installed
     pcall(require('telescope').load_extension, 'fzf')
     pcall(require('telescope').load_extension, 'ui-select')
     pcall(require('telescope').load_extension, 'dap')
-    require("telescope").load_extension('cmdline')
+    -- require("telescope").load_extension('cmdline')
 
     -- See `:help telescope.builtin`
     local builtin = require 'telescope.builtin'
     vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
     vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
-    vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
+    -- vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
     vim.keymap.set('n', '<leader>sF', function()
       builtin.find_files {
         no_ignore = true,
@@ -129,10 +132,10 @@ return { -- Fuzzy Finder (files, lsp, etc)
     vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
     vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
     vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
-    vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
+    -- vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
     vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
     vim.keymap.set('n', '<leader>sb', builtin.buffers, { desc = '[S]earch [B]uffers' })
-    vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[S]earch [B]uffers' })
+    -- vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[S]earch [B]uffers' })
 
     -- Slightly advanced example of overriding default behavior and theme
     vim.keymap.set('n', '<leader>scf', function()
@@ -157,8 +160,8 @@ return { -- Fuzzy Finder (files, lsp, etc)
       builtin.find_files { cwd = vim.fn.stdpath 'config' }
     end, { desc = '[S]earch [N]eovim files' })
 
-    vim.keymap.set('n', '<leader>ss', function()
-      builtin.lsp_document_symbols()
-    end, { desc = '[S]earch document [S]ymbols' })
+    -- vim.keymap.set('n', '<leader>ss', function()
+    --   builtin.lsp_document_symbols()
+    -- end, { desc = '[S]earch document [S]ymbols' })
   end,
 }

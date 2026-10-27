@@ -2,22 +2,27 @@
 {
   "height": 32, // Waybar height (to be removed for auto height)
   "spacing": 8, // Gaps between modules (4px)
+  "position": "top",
+  // "mode": "hide",
   "margin": "8 8 0 8",
   // Choose the order of the modules
   "modules-left": [
     "clock#date",
-    "clock#time"
+    "clock#time",
   ],
   "modules-center": [
-    "tray"
+    "tray",
   ],
   "modules-right": [
     "pulseaudio",
     "network",
     "cpu",
     "memory",
+    "battery",
+    "backlight",
     "temperature",
-    "custom/swaync"
+    "custom/swaync",
+    "custom/powermenu"
   ],
   // Modules configuration
   // "sway/workspaces": {
@@ -138,4 +143,35 @@
     "on-click-right": "swaync-client -d -sw",
     "escape": true
   },
+  "custom/powermenu": {
+    "tooltip": true,
+    "format": "<span></span>",
+    "on-click": "~/.config/rofi/applets/bin/powermenu.sh"
+  },
+  "battery": {
+    "bat": "BAT0",
+    "interval": 60,
+    "format": "{capacity}% {icon}",
+    "format-icons": {
+        "default": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+        "charging": ["󰢟", "󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"]
+    },
+  },
+  "backlight": {
+    "device": "intel_backlight",
+    "format": "{percent}% {icon}",
+    "format-icons": ["", ""]
+  },
+  "mpris": {
+	"format": "DEFAULT: {player_icon} {dynamic}",
+	"format-paused": "DEFAULT: {status_icon} <i>{dynamic}</i>",
+	"player-icons": {
+		"default": "▶",
+		"mpv": "🎵"
+	},
+	"status-icons": {
+		"paused": "⏸"
+	},
+	// "ignored-players": ["firefox"]
+  }
 }

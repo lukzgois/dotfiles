@@ -150,10 +150,14 @@ vim.opt.cursorline = true
 vim.opt.cursorlineopt = 'number'
 
 -- Minimal number of screen lines to keep above and below the cursor.
-vim.opt.scrolloff = 10
-vim.opt.sidescrolloff = 10
+vim.opt.scrolloff = 18
+vim.opt.sidescrolloff = 18
 
 vim.opt.cmdheight = 0
+vim.opt.laststatus = 3
+
+vim.opt.winborder = 'rounded'
+vim.opt.autocomplete = true
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
@@ -164,8 +168,8 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- General keymaps
 vim.keymap.set('i', 'jj', '<ESC>', { desc = 'Exit insert mode with jj' })
-vim.keymap.set('n', '<C-s>', ':w<CR>', { desc = 'Save with CRTL+S' })
-vim.keymap.set('n', '<C-q>', ':q<CR>', { desc = 'Quit with CRTL+Q' })
+vim.keymap.set('i', 'jk', '<ESC>', { desc = 'Exit insert mode with jk' })
+-- vim.keymap.set('n', '<C-s>', ':w<CR>', { desc = 'Save with CRTL+S' })
 
 vim.keymap.set('v', '<', '<gv', { desc = 'Indent and immediately re-select the previous visual selection' })
 vim.keymap.set('v', '>', '>gv', { desc = 'Indent and immediately re-select the previous visual selection' })
@@ -279,15 +283,43 @@ require('lazy').setup({
   },
 })
 
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-vim.opt.foldtext = ""
+vim.opt.foldtext = ''
 vim.opt.foldlevel = 99
-vim.opt.foldlevelstart = 7
+vim.opt.foldlevelstart = 99
+vim.opt.foldcolumn = '0'
+vim.opt.foldenable = true
 
-vim.opt.conceallevel = 1
+vim.opt.conceallevel = 0
+vim.opt.autocomplete = false
 
-require('neovide')
+-- require 'neovide'
+
+-- paths to check for project.godot file
+local paths_to_check = { '/', '/../' }
+local is_godot_project = false
+local godot_project_path = ''
+local cwd = vim.fn.getcwd()
+
+-- iterate over paths and check
+for key, value in pairs(paths_to_check) do
+  if vim.uv.fs_stat(cwd .. value .. 'project.godot') then
+    is_godot_project = true
+    godot_project_path = cwd .. value
+    break
+  end
+end
+
+-- check if server is already running in godot project path
+local is_server_running = vim.uv.fs_stat(godot_project_path .. '/server.pipe')
+
+-- start server, if not already running
+if is_godot_project and not is_server_running then
+  vim.fn.serverstart(godot_project_path .. '/server.pipe')
+end
+
+-- vim.opt.autocomplete = true
+-- vim.treesitter.language.add('blade', { path = '/home/palmas/.local/share/tree-sitter/tree-sitter-blade/blade.so' })
+-- vim.treesitter.language.register('blade', { 'blade' })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

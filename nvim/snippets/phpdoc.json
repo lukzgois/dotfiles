@@ -1,0 +1,7 @@
+{
+  "comment_simple": {
+    "prefix": "/*",
+    "body": ["/**", " * ${1:A one-line summary.}", " */"],
+    "description": "A simple PHP comment block for classes, including short summary, and details. Useful when you prefer to add the other documentation tags manually."
+  }
+}

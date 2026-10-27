@@ -1,0 +1,7 @@
+{
+  "console log with tag": {
+    "prefix": "todo",
+    "body": ["- [ ] $0"],
+    "description": "Todo item"
+  }
+}
