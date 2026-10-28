@@ -3,7 +3,7 @@ return {
     globals = { 'vim ' },
     Lua = {
       diagnostics = {
-        globals = { 'vim' },
+        globals = { 'vim', 'hl' },
       },
       telemetry = {
         enable = false,
