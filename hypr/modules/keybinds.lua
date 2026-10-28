@@ -23,136 +23,28 @@ hl.bind("SUPER + l", hl.dsp.layout("focus right"))
 hl.bind("SUPER + CTRL + l", hl.dsp.layout("swapcol r"))
 hl.bind("SUPER + CTRL + h", hl.dsp.layout("swapcol l"))
 
-hl.bind(
-	"SUPER + 1",
-	hl.dsp.focus({
-		workspace = "1",
-	})
-)
-hl.bind(
-	"SUPER + 2",
-	hl.dsp.focus({
-		workspace = "2",
-	})
-)
-hl.bind(
-	"SUPER + 3",
-	hl.dsp.focus({
-		workspace = "3",
-	})
-)
-hl.bind(
-	"SUPER + 4",
-	hl.dsp.focus({
-		workspace = "4",
-	})
-)
-hl.bind(
-	"SUPER + 5",
-	hl.dsp.focus({
-		workspace = "5",
-	})
-)
-hl.bind(
-	"SUPER + 6",
-	hl.dsp.focus({
-		workspace = "6",
-	})
-)
-hl.bind(
-	"SUPER + 7",
-	hl.dsp.focus({
-		workspace = "7",
-	})
-)
-hl.bind(
-	"SUPER + 8",
-	hl.dsp.focus({
-		workspace = "8",
-	})
-)
-hl.bind(
-	"SUPER + 9",
-	hl.dsp.focus({
-		workspace = "9",
-	})
-)
-hl.bind(
-	"SUPER + 0",
-	hl.dsp.focus({
-		workspace = "10",
-	})
-)
-hl.bind(
-	"SUPER + SHIFT + 1",
-	hl.dsp.window.move({
-		workspace = "1",
-		follow = true,
-	})
-)
-hl.bind(
-	"SUPER + SHIFT + 2",
-	hl.dsp.window.move({
-		workspace = "2",
-		follow = true,
-	})
-)
-hl.bind(
-	"SUPER + SHIFT + 3",
-	hl.dsp.window.move({
-		workspace = "3",
-		follow = true,
-	})
-)
-hl.bind(
-	"SUPER + SHIFT + 4",
-	hl.dsp.window.move({
-		workspace = "4",
-		follow = true,
-	})
-)
-hl.bind(
-	"SUPER + SHIFT + 5",
-	hl.dsp.window.move({
-		workspace = "5",
-		follow = true,
-	})
-)
-hl.bind(
-	"SUPER + SHIFT + 6",
-	hl.dsp.window.move({
-		workspace = "6",
-		follow = true,
-	})
-)
-hl.bind(
-	"SUPER + SHIFT + 7",
-	hl.dsp.window.move({
-		workspace = "7",
-		follow = true,
-	})
-)
-hl.bind(
-	"SUPER + SHIFT + 8",
-	hl.dsp.window.move({
-		workspace = "8",
-		follow = true,
-	})
-)
-hl.bind(
-	"SUPER + SHIFT + 9",
-	hl.dsp.window.move({
-		workspace = "9",
-		follow = true,
-	})
-)
-hl.bind(
-	"SUPER + SHIFT + 0",
-	hl.dsp.window.move({
-		workspace = "10",
-		follow = true,
-	})
-)
+local ws_map = {
+	["1"] = "1",
+	["2"] = "2",
+	["3"] = "3",
+	["4"] = "4",
+	["5"] = "5",
+	["6"] = "6",
+	["7"] = "7",
+	["8"] = "8",
+	["9"] = "9",
+	["0"] = "10",
+}
+
+-- Focus workspaces
+for key, ws in pairs(ws_map) do
+	hl.bind("SUPER + " .. key, hl.dsp.focus({ workspace = ws }))
+end
+
+-- Move windows to workspaces
+for key, ws in pairs(ws_map) do
+	hl.bind("SUPER + SHIFT + " .. key, hl.dsp.window.move({ workspace = ws, follow = true }))
+end
 hl.bind("SUPER + S", hl.dsp.workspace.toggle_special(""))
 hl.bind(
 	"SUPER + SHIFT + S",
