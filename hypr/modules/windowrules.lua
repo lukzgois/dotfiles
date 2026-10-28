@@ -4,12 +4,14 @@ hl.window_rule({
 	},
 	workspace = "special",
 })
+
 hl.window_rule({
 	match = {
 		class = "spotify",
 	},
 	workspace = "special",
 })
+
 hl.window_rule({
 	name = "suppress-maximize-events",
 	match = {
@@ -17,6 +19,7 @@ hl.window_rule({
 	},
 	suppress_event = "maximize",
 })
+
 hl.window_rule({
 	name = "fix-xwayland-drags",
 	match = {
@@ -29,6 +32,7 @@ hl.window_rule({
 	},
 	no_focus = true,
 })
+
 hl.window_rule({
 	name = "move-hyprland-run",
 	match = {
