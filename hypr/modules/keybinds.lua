@@ -1,27 +1,29 @@
-hl.bind("SUPER + return", hl.dsp.exec_cmd("kitty"))
-hl.bind("SUPER + C", hl.dsp.window.close())
+local mainMod = "SUPER"
+
+hl.bind(mainMod .. " + return", hl.dsp.exec_cmd("kitty"))
+hl.bind(mainMod .. " + C", hl.dsp.window.close())
 hl.bind(
-	"SUPER + M",
+	mainMod .. " + M",
 	hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit")
 )
-hl.bind("SUPER + E", hl.dsp.exec_cmd("thunar"))
-hl.bind("SUPER + V", hl.dsp.window.float())
-hl.bind("SUPER + D", hl.dsp.exec_cmd("~/.config/rofi/launchers/type-4/launcher.sh"))
-hl.bind("SUPER + N", hl.dsp.exec_cmd("swaync-client -t -sw"))
-hl.bind("SUPER + P", hl.dsp.exec_cmd("hyprshot -m output -o /home/palmas/Pictures/Screenshots"))
-hl.bind("SUPER + SHIFT + P", hl.dsp.exec_cmd("hyprshot -m region --clipboard-only"))
-hl.bind("SUPER + CTRL + P", hl.dsp.exec_cmd("hyprshot -m window -o ~/Pictures/Screenshots"))
-hl.bind("SUPER + ALT + P", hl.dsp.exec_cmd("hyprpicker -a, "))
-hl.bind("SUPER + B", hl.dsp.exec_cmd("killall -SIGUSR1 waybar"))
-hl.bind("SUPER + SHIFT + R", hl.dsp.exec_cmd("hyprctl reload"))
+hl.bind(mainMod .. " + E", hl.dsp.exec_cmd("thunar"))
+hl.bind(mainMod .. " + V", hl.dsp.window.float())
+hl.bind(mainMod .. " + D", hl.dsp.exec_cmd("~/.config/rofi/launchers/type-4/launcher.sh"))
+hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("swaync-client -t -sw"))
+hl.bind(mainMod .. " + P", hl.dsp.exec_cmd("hyprshot -m output -o /home/palmas/Pictures/Screenshots"))
+hl.bind(mainMod .. " + SHIFT + P", hl.dsp.exec_cmd("hyprshot -m region --clipboard-only"))
+hl.bind(mainMod .. " + CTRL + P", hl.dsp.exec_cmd("hyprshot -m window -o ~/Pictures/Screenshots"))
+hl.bind(mainMod .. " + ALT + P", hl.dsp.exec_cmd("hyprpicker -a, "))
+hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("killall -SIGUSR1 waybar"))
+hl.bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd("hyprctl reload"))
 
-hl.bind("SUPER + f", hl.dsp.window.fullscreen({ action = "toggle" }))
+hl.bind(mainMod .. " + f", hl.dsp.window.fullscreen({ action = "toggle" }))
 
-hl.bind("SUPER + r", hl.dsp.layout("colresize +conf"))
-hl.bind("SUPER + h", hl.dsp.layout("focus left"))
-hl.bind("SUPER + l", hl.dsp.layout("focus right"))
-hl.bind("SUPER + CTRL + l", hl.dsp.layout("swapcol r"))
-hl.bind("SUPER + CTRL + h", hl.dsp.layout("swapcol l"))
+hl.bind(mainMod .. " + r", hl.dsp.layout("colresize +conf"))
+hl.bind(mainMod .. " + h", hl.dsp.layout("focus left"))
+hl.bind(mainMod .. " + l", hl.dsp.layout("focus right"))
+hl.bind(mainMod .. " + CTRL + l", hl.dsp.layout("swapcol r"))
+hl.bind(mainMod .. " + CTRL + h", hl.dsp.layout("swapcol l"))
 
 local ws_map = {
 	["1"] = "1",
@@ -38,36 +40,37 @@ local ws_map = {
 
 -- Focus workspaces
 for key, ws in pairs(ws_map) do
-	hl.bind("SUPER + " .. key, hl.dsp.focus({ workspace = ws }))
+	hl.bind(mainMod .. " + " .. key, hl.dsp.focus({ workspace = ws }))
 end
 
 -- Move windows to workspaces
 for key, ws in pairs(ws_map) do
-	hl.bind("SUPER + SHIFT + " .. key, hl.dsp.window.move({ workspace = ws, follow = true }))
+	hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = ws, follow = true }))
 end
-hl.bind("SUPER + S", hl.dsp.workspace.toggle_special(""))
+
+hl.bind(mainMod .. " + S", hl.dsp.workspace.toggle_special(""))
 hl.bind(
-	"SUPER + SHIFT + S",
+	mainMod .. " + SHIFT + S",
 	hl.dsp.window.move({
 		workspace = "special",
 		follow = true,
 	})
 )
 hl.bind(
-	"SUPER + mouse_down",
+	mainMod .. " + mouse_down",
 	hl.dsp.focus({
 		workspace = "e+1",
 	})
 )
 hl.bind(
-	"SUPER + mouse_up",
+	mainMod .. " + mouse_up",
 	hl.dsp.focus({
 		workspace = "e-1",
 	})
 )
 
-hl.bind("SUPER + mouse:272", hl.dsp.window.drag())
-hl.bind("SUPER + mouse:273", hl.dsp.window.resize())
+hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag())
+hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize())
 hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"), {
 	repeating = true,
 	locked = true,
@@ -107,7 +110,8 @@ hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), {
 
 hl.bind("CTRL + SHIFT + l", hl.dsp.exec_cmd("~/.config/hypr/scripts/toggle_layout.sh"))
 
-hl.bind("SUPER + g", hl.dsp.submap("cursor"))
+-- cursor submap
+hl.bind(mainMod .. " + g", hl.dsp.submap("cursor"))
 hl.define_submap("cursor", function()
 	hl.bind(
 		"a",
